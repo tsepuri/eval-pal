@@ -1,0 +1,29 @@
+  body, html { 
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.result-hover:hover {
+  background-color: rgba(0, 48, 78, 1);
+}
+
+.result-option{
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+h1{
+    font-size: 60px;
+}
+.wow {
+  visibility: hidden;
+}
+
+#section1 {padding-top:50px;height:100%; z-index: 0; background-image: url("https://images.squarespace-cdn.com/content/v1/54734291e4b0a7be4111f6b8/1418770732190-XT8QQ1WNST1IYZIFVV5M/ke17ZwdGBToddI8pDm48kBjq-a6mlEUM2zlDIWroUwcUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dgq7TUig9iTCN4FH0Uw6ewH_jTjF0hmOMRwNm66WLfgLOpYghpI-Ha_TwZsqqmJXng/casewestern-2.jpg"); width: 100%; padding: 0 !important; margin: 0 auto !important; background-size: cover; overflow: hidden;}
+  #section2 {padding-top:50px;height:100%; z-index: 1; color: #fff; background-color: rgb(44, 59, 141)}
+  #section3 {padding-top:50px;height:100%;color: #fff; background-color: #ff9800;}
+  #section41 {padding-top:50px;height:500px;color: #fff; background-color: #00bcd4;}

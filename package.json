@@ -1,7 +1,6 @@
 {
   "name": "eval-pal",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -22,5 +21,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsepuri/eval-pal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tsepuri/eval-pal/issues"
+  },
+  "homepage": "https://github.com/tsepuri/eval-pal#readme",
+  "description": ""
 }

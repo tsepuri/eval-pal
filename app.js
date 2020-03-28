@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 })
 app.post("/Options.html", (req, res) => {
     res.sendFile(path.join(__dirname, '/public/options.html'));
+    
 })
 app.get('/submit', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/form.html'));
