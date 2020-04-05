@@ -24,20 +24,12 @@ app.get('/submit', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/form.html'));
   });
   app.post('/submit', (req, res) => {
+    
     console.log({
       name: req.body.name,
       message: req.body.message
     });
-    var xmlHttp = new XMLHttpRequest();
-    let url = 'metal-filament-270618.appspot.com/professor/' + req.body.name;
-
-    xmlHttp.open("GET", url, true);
-    xmlHttp.send();
-    console.log(xmlHttp.responseText);
-    
-    xmlHttp.onreadystatechange = (e) => {
-    console.log(xmlHttp.responseText)
-  }
+    res.end();
   });
 
 const PORT = process.env.PORT || 3000;
