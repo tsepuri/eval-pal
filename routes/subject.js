@@ -30,8 +30,15 @@ router.get("/subject/:subject", (req, res) => {
     keys.push(catalogNbr);
     }
     for(var key in req.query){
+        if(key==="instructor_name"){
+            sqlQueryString = sqlQueryString + " AND instructor_name LIKE ?"
+            keys.push('%'+req.query[key]+'%');
+        }
+        else{
         sqlQueryString = sqlQueryString + " AND " +key+ " = ?";
         keys.push(req.query[key]);
+        }
+        
     }
     const queryString = "SELECT * FROM summer WHERE"+sqlQueryString;
     connection.query(queryString, keys, (err, rows, fields) => {

@@ -12,6 +12,7 @@ const pool = mysql.createPool({
 function getConnection() {
     return pool
 }
+
 router.get("/professor/:professor", (req, res) => {
     
     const connection = getConnection();

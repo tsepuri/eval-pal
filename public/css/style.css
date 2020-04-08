@@ -4,7 +4,10 @@
     padding: 0;
     margin: 0;
 }
-
+.header-image{
+  max-width: 160px;
+  padding-top: 0.5rem;
+}
 .result-hover:hover {
   background-color: rgba(0, 48, 78, 1);
 }

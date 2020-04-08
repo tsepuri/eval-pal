@@ -10,14 +10,16 @@ const routerSubject = require('./routes/subject.js')
 const routerProfessor = require('./routes/professors.js')
 app.use(routerSubject)
 app.use(routerProfessor)
-const cheerio = require('cheerio')
-const request = require('request')
+const ejs = require('ejs');
+app.engine('html', require('ejs').renderFile)
+app.set('view engine', 'ejs');
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
    
 })
-app.post("/Options.html", (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/options.html'));
+app.post("/Options", (req, res) => {
+    //res.sendFile(path.join(__dirname, '/public/options.html'));
+    res.render('options', {data: req.body.searched});
     
 })
 app.get('/submit', (req, res) => {
