@@ -55,12 +55,12 @@
                 <h2 style = "display: flex; justify-content: center; align-items: center; font-size: 30px; color: white"></h2>
                 <div style = "height: 7%; width: 100%; padding: 2%"></div>
                 <div>
-                    <form action = "./Options.html" method = "POST">
+                    <form action = "./Options"  method = "POST">
                         <div class = "row" style = "width: 100%; margin: 0px; padding: 0px">
                             <div class = "col-lg-2"></div>
                             <div class = "col-lg-8">
                             <div class = "row no-gutters justify-content-center" style = "overflow: hidden">
-                                <div><input size = "40" class="form-control" type="text" name = "userInput" placeholder="Search a class or professor" aria-label="Search"></div>
+                                <div><input size = "40" class="form-control wow" type="text" name = "searched" placeholder="Search a class or professor" aria-label="Search"></div>
                                 <div><button class="btn aqua-gradient btn-rounded btn-md my-0" type="submit">Search</button></div>
                             </div>
                             </div>
@@ -70,8 +70,7 @@
                 </div>
             </div>
         </div>
-    <!--<div id = "section2" style = "overflow-y: auto; ">-->
-    <!-- End your project here-->
+    
 
     <!-- jQuery -->
     <script type="text/javascript" src="/js/jquery.min.js"></script>
@@ -81,6 +80,8 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="/js/mdb.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
     <!-- Your custom scripts (optional) -->
     <script>$(document).ready(function() {
         new WOW().init();
@@ -88,8 +89,8 @@
     
         var request = new XMLHttpRequest();
        var userInput = "<%= data %>";
-        request.open('GET', 'https://metal-filament-270618.appspot.com/professor/' + userInput, true); ;
-        console.log("part one");
+        request.open('GET', '../api/professor/' + userInput, true); 
+        console.log(userInput);
             request.onload = function(){
                 var i = 0;
                 var colOne;
@@ -110,7 +111,7 @@
                         colTwo.innerText = data[i].instructor_name;
                         profName = data[i].instructor_name;
                         profName = hyphenate(profName);
-                        row.setAttribute("href", "https://metal-filament-270618.appspot.com/subject/"+data[i].subject+data[i].catalog_nbr+"?instructor_name="+profName);
+                        row.setAttribute("href", "../professor/"+profName+"?subject="+data[i].subject+"&catalog_nbr="+data[i].catalog_nbr);
                         row.appendChild(colOne);
                         row.appendChild(colTwo);
                         document.getElementById("results").appendChild(row);
@@ -137,9 +138,9 @@
                 }
                 return hyphenatedName;
             }
-        
+           
         request.send(); </script>
 
-    
+
 </body>
 </html>
