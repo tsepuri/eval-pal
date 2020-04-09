@@ -1,5 +1,4 @@
 const express = require('express');
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const app = express();
 const mysql = require('mysql');
 const path = require(`path`);

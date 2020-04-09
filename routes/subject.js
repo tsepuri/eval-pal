@@ -1,11 +1,10 @@
 const express = require('express')
 const mysql = require('mysql')
 const router = express.Router()
-const axios = require('axios');
 const path = require(`path`);
 const bodyParser = require('body-parser')
 const ejs = require('ejs');
-
+require('dotenv').config();
 router.get('/messages', (req, res) => {
     console.log("Show messages")
     res.end()
@@ -71,8 +70,8 @@ function isLetter(str) {
   }
 const pool = mysql.createPool({
     connectionLimit: 15,
-    user: 'root',
-    password: 'cwru2023',
+    user: process.env.SQL_USER,
+    password: process.env.SQL_PASSWORD,
     database: 'evalpal',
     socketPath: `/cloudsql/metal-filament-270618:us-east1:evalpal`
 })

@@ -90,13 +90,13 @@
         var request = new XMLHttpRequest();
        var userInput = "<%= data %>";
         request.open('GET', '../api/professor/' + userInput, true); 
-        console.log(userInput);
+        
             request.onload = function(){
                 var i = 0;
                 var colOne;
                 var colTwo;
                 data = JSON.parse(this.response);
-                console.log(data.length + "")
+                
                 if (request.status >= 200 && request.status < 400) {
                     for (i = 0; i < data.length; i++){
                         row = document.createElement('a');

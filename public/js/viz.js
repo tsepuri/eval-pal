@@ -4,9 +4,9 @@ $(document).ready(function() {
     let data = document.currentScript.getAttribute('data');
     var request = new XMLHttpRequest();
    var userInput = data;
-   console.log(userInput);
+   
     request.open('GET', '..' + userInput, true); ;
-    console.log("part one");
+    
         request.onload = function(){
             var i = 0;
             var colOne;
@@ -36,7 +36,7 @@ $(document).ready(function() {
             
             if (request.status >= 200 && request.status < 400) {
                 data = parseData(data);
-                console.log(data);
+                
                 data.sort(sortNumber);
                 
                 
@@ -59,7 +59,7 @@ var line = d3.line()
 var g = svg.append("g")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-console.log("Hi");
+
 data.forEach(function(d) {
   d.year = parseTime(d.year);
   d.value = +d.value;
@@ -154,7 +154,7 @@ function mousemove() {
                 let yearAndMonth =  yearOf(data[i].term_name);   
                 if(yearMap.has(yearAndMonth)){
                     let id = yearMap.get(yearAndMonth);
-                    console.log(id);
+                    
                     let newRating = ((id.rating*id.responses) + (data[i].Your_overall_rating_of_the_instructor*data[i].responses))/(data[i].responses + id.responses);
                     newRating = Math.round(newRating*100) / 100.0;
                     arr[id.arrayID].value = newRating;

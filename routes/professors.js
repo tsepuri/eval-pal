@@ -1,11 +1,11 @@
 const express = require('express')
 const mysql = require('mysql')
 const router = express.Router()
-
+require('dotenv').config();
 const pool = mysql.createPool({
     connectionLimit: 10,
-    user: 'root',
-    password: 'cwru2023',
+    user: process.env.SQL_USER,
+    password: process.env.SQL_PASSWORD,
     database: 'evalpal',
     socketPath: `/cloudsql/metal-filament-270618:us-east1:evalpal`
 })
