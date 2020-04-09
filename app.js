@@ -15,12 +15,12 @@ app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'ejs');
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
-   
 })
 app.post("/Options", (req, res) => {
     //res.sendFile(path.join(__dirname, '/public/options.html'));
     res.render('options', {data: req.body.searched});
-    
+
+
 })
 app.get('/submit', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/form.html'));
@@ -33,7 +33,6 @@ app.get('/submit', (req, res) => {
     });
     res.end();
   });
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

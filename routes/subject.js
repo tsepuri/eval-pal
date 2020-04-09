@@ -1,12 +1,22 @@
 const express = require('express')
 const mysql = require('mysql')
 const router = express.Router()
+const axios = require('axios');
+const path = require(`path`);
+const bodyParser = require('body-parser')
+const ejs = require('ejs');
+
 router.get('/messages', (req, res) => {
     console.log("Show messages")
     res.end()
 })
 
 router.get("/subject/:subject", (req, res) => {
+
+    url = "/api"+req.url;
+    res.render('ratings.ejs', {data:url});
+})
+router.get("/api/subject/:subject", (req, res) => {
     
     const connection = getConnection();
     let subjectWithCode = req.params.subject;
@@ -49,7 +59,10 @@ router.get("/subject/:subject", (req, res) => {
             return {term: row.term_name, classNumber: row.class_nbr, subject: row.subject, instructorId : row.instructor_netid, enrollment: row.enrollment, catalogNumber: row.catalog_nbr, responses: row.responses}
         })
         */
+       
         res.json(rows)
+        
+
     })
 })
 
@@ -57,7 +70,7 @@ function isLetter(str) {
     return str.length === 1 && str.match(/[A-Z]/i);
   }
 const pool = mysql.createPool({
-    connectionLimit: 10,
+    connectionLimit: 15,
     user: 'root',
     password: 'cwru2023',
     database: 'evalpal',

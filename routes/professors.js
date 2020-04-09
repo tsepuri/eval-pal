@@ -12,8 +12,12 @@ const pool = mysql.createPool({
 function getConnection() {
     return pool
 }
-
 router.get("/professor/:professor", (req, res) => {
+
+    url = "/api"+req.url;
+    res.render('ratings.ejs', {data:url});
+})
+router.get("/api/professor/:professor", (req, res) => {
     
     const connection = getConnection();
     let professorId = req.params.professor;
