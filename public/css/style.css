@@ -11,6 +11,12 @@
 .result-hover:hover {
   background-color: rgba(0, 48, 78, 1);
 }
+.rating-number{
+  font-size: 3rem;
+}
+.circle-with-text .p{
+  font-size: 1rem;
+}
 
 .result-option{
   background-color: transparent;
@@ -25,8 +31,12 @@ h1{
 .wow {
   visibility: hidden;
 }
-  
-
+.graph{
+  display: none;
+}
+.rating-text{
+  line-height: 16px;
+}
 
 .axis path,
 .axis line {
@@ -35,6 +45,53 @@ h1{
   stroke-width: 2px;
   shape-rendering: crispEdges;
 }
+.gtitle {
+  background: white;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.tooltip-comp {
+  position: absolute;
+  display: none;
+  width: auto;
+  height: auto;
+  background: #515A5A;
+  border: 0 none;
+  border-radius: 4px;
+  color: #F8786B;
+  font: 12px sans-serif;
+  padding: 5px;
+  text-align: center;
+} 
+@keyframes slideUp {
+  from {
+      transform: translateY(-200%);
+  }
+  to {
+      transform: translateY(-50%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+.gtitle h3 {
+  animation: slideUp 0.75s 0.5s cubic-bezier(0.17, 0.88, 0.32, 1.27) both,
+  fadeIn 0.25s 0.5s ease-in both;
+  padding: 0 20px;
+  position: absolute;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  top: 25%;
+  width: 100%;
+}
 .axis{
   color: #fff;
 }
@@ -42,7 +99,11 @@ h1{
   fill: #5B6770;
   letter-spacing: 1px;
 }
-
+.title{
+  color: #fff;
+  margin-left: 20%;
+  margin-top: 5%;
+}
 .line {
   fill: none;
   stroke: rgb(170, 218, 219);
@@ -53,7 +114,53 @@ h1{
   fill: none;
   pointer-events: all;
 }
-.ticer{
+.circle-with-text-rating{
+  border: 2px solid #222;
+  align-items: left;
+  display: flex;
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  padding-left: 0.3rem;
+  margin-left: 0em;
+  border-bottom-right-radius: 100%;
+  border-top-right-radius: 100%;
+  height: 6rem;
+  width: 7rem;
+  background-color: rgb(153, 220, 221);
+  color: #222;
+  text-align: left;
+}
+.circle-with-text {
+  border: 2px solid rgb(153, 220, 221);
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  text-align: center;
+  display: none;
+  background: transparent;
+  font-weight: bolder;
+  font-size: 15px;
+  padding: 10px;
+  height: 170px;
+  width: 170px;
+  color: rgb(153, 220, 221);
+}
+.circle-with-text:hover{
+  color: rgba(0, 48, 78, 1);
+  background-color: rgb(153, 220, 221);
+  transition-duration: 0.5s;
+
+  
+}
+.circle-with-text:hover div.graph{
+  display: inline;
+}
+.circle-with-text:hover div.rating-number{
+  display: none;
+}
+
+.focus .ticker{
   color: #fff;
 }
 .focus circle {
@@ -61,7 +168,15 @@ h1{
   stroke: rgb(153, 220, 221);
   stroke-width: 5px;
 }
-  
+#container-rating-options{
+  width: 90%;
+  align-items: flex-start;
+  margin-right: 10%;
+
+  color: rgb(153, 220, 221);
+  margin-top: 20%;
+  padding: 1rem;
+}
 .hover-line {
   stroke: rgb(153, 220, 221);
   stroke-width: 1px;

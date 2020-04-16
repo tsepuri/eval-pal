@@ -25,8 +25,10 @@
             <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style = "background-color: rgba(0, 48, 78, 1)">
                 <!--<img src="https://scalar.usc.edu/works/new-and-improved/media/cwru_stacked_logo_blue_no_tag.jpg" height="30" class="d-inline-block align-top"
                 alt="Case Western logo">-->
-                <a class="navbar-brand" href="#">EvalPal</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand header-image w-5 " href="../"><img src="/img/header.png" class="w-50" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <form class="form-inline my-2 my-lg-0 ml-auto">
@@ -47,19 +49,115 @@
             <h2 class = "wow fadeInDown teachingLine" style = "display: flex; justify-content: center; align-items: center; font-size: 30px; color: white">Results</h2>
            <div class="row align-items">
                 <div class="col-6">
-            <button class="btn btn-md d-lg-none"><a class="professor" display="none">Prof</a></button>
+            <button class="btn btn-md" style="display:none"><a class="professor" display="none">Prof</a></button>
         </div>
        
             </div>
             <div style = "height: 4%"></div>
-            <div style = "width: 60%; margin-left:20%; background-color: rgb(1, 35, 56); opacity: .85; z-index: 2; position: absolute">
-                <div id = "results" style = "width: 80%; margin-left:10%">
-                    <div class = "row" style = "width: 100%; padding-top: 2%; border-bottom-style: solid; border-width: 2px; border-color: rgba(42, 45, 202, 0.753)">
+            <div style = "width: 90%; margin-left:5%; background-color: rgb(1, 35, 56); opacity: .85; z-index: 2; position: absolute">
+                <div class="row">
+                    
+                    <div class="col-2">
+                                <div id="container-rating-options">
+                                    
+                                    <h5>Select ratings to view</h5>
+                                    <div class="custom-control custom-checkbox">
+                                        
+                                      
+                                      <input type="checkbox" class="custom-control-input" value="courseRating" id="course_rating" checked>
+                                        <label class="custom-control-label" for="course_rating"><div class = "circle-with-text-rating" style = "align-items: center; "> 
+                                            Overall Rating of Course
+                               </div> </label>
+                               </div>
+                               <div class="custom-control custom-checkbox">
+                               <input type="checkbox" class="custom-control-input" value="instructorRating" id="overall_rating" checked>
+                                        <label class="custom-control-label" for="overall_rating"><div class = "circle-with-text-rating" style = "align-items: center; "> 
+                                            Overall Rating of the Instructor
+                               </div> </label></div>
+                               <div class="custom-control custom-checkbox">
+                               <input type="checkbox" class="custom-control-input" value="fairGrading" id="grading_fairly" checked>
+                                        <label class="custom-control-label" for="grading_fairly"><div class = "circle-with-text-rating" style = "align-items: center; "> 
+                                            Grading is done fairly
+                               </div> </label></div>
+                               <div class="custom-control custom-checkbox">
+                               <input type="checkbox" class="custom-control-input" value="assignedWork" id="assigned_work">
+                                        <label class="custom-control-label" for="assigned_work"><div class = "circle-with-text-rating" style = "font-size: 0.6rem; padding-top:1.2rem;"> 
+                                            The assigned 
+                                            work helped me learn the course content
+                               </div> </label></div>
+                               <div class="custom-control custom-checkbox">
+                               <input type="checkbox" class="custom-control-input" value="studentsInformedOfProgress" id="studentsInformed">
+                                        <label class="custom-control-label" for="studentsInformed"><div class = "circle-with-text-rating" style = "font-size: 0.6rem; padding-top:1.2rem;"> 
+                                            Students are informed of their progress in a timely manner
+                               </div> </label>
+                               
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" value="writesClearly" id="speaksAndWrites">
+                                                 <label class="custom-control-label" for="speaksAndWrites"><div class = "circle-with-text-rating" style = "font-size: 0.6rem; padding-top:1.2rem;"> 
+                                                     The instructor speaks and writes clearly
+                                        </div> </label>
+                                        
+                                             </div>
+                                </div>
+                    </div>
+                    <div class="col-10">
+                <div id = "results" style = "width: 100%; margin-left:5%; margin-right:5%;">
+                    
+                    <div class = "row" style = "width: 100%; padding-top: 2%; border-color: rgba(42, 45, 202, 0.753)">
                         
-                        <div class = "col" style = "background-color: transparent; display: flex; justify-content: center; align-items: center; color: white; font-size:25px; font-weight: bolder;">Overall Rating of Instructor</div>
+                        <button class="button-rating" type="submit" value="Your overall rating of the instructor" style="background-color: transparent; border: none;"> 
+                            <div class = "circle-with-text" id="instructorRating" value="Your overall rating of the instructor" style = "align-items: center; "> 
+                                
+                            
+                    </div> 
+            
+                            </button>
+                            <button type="submit" class="button-rating" value="Your overall rating of the course" style="background-color: transparent; border: none;"> 
+                                <div class = "circle-with-text" id="courseRating" value="Your overall rating of the course" style = "align-items: center; "> 
+                                     View other ratings
+                        </div> 
+                                </button>
+                            <a id="view_more"><button type="submit" class="circle-2-button" style="background-color: transparent; border: none;"> 
+                                <div class = "circle-with-text circle-2" style = "align-items: center; "> 
+                                   View more
+                        </div> 
+                                </button></a>
+                                <button type="submit" id="view-more" style="background-color: transparent; border: none;"> 
+                                    <div class = "circle-with-text circle-3" style = "align-items: center; "> 
+                                         View other ratings
+                            </div> 
+                                    </button>
+                                    <button type="submit" class="circle-5-button button-rating" value="Grading is done fairly" style="background-color: transparent; border: none;"> 
+                                        <div class = "circle-with-text circle-5" id="fairGrading" value="Grading is done fairly" style = "align-items: center;"> 
+                                             View other ratings
+                                </div> 
+                                        </button>
+                                     <button type="submit" class="button-rating" style="background-color: transparent; border: none;" value="The assigned work helped me learn the course content"> 
+                                    <div class = "circle-with-text" id="assignedWork" value="The assigned work helped me learn the course content" style = "align-items: center; "> 
+                                         View other ratings
+                            </div> 
+                                    </button>
+                                    <button type="submit" class="button-rating" style="background-color: transparent; border: none;" value="Students are informed of their progress in a timely manner"> 
+                                        <div class = "circle-with-text" id="studentsInformedOfProgress" value="Students are informed of their progress in a timely manner" style = "align-items: center; "> 
+                                             View other ratings
+                                </div> 
+                                        </button>
+                                        <button type="submit" class="button-rating" style="background-color: transparent; border: none;" value="The instructor speaks and writes clearly""> 
+                                            <div class = "circle-with-text" id="writesClearly" value="The instructor speaks and writes clearly" style = "align-items: center; "> 
+                                                 View other ratings
+                                    </div> 
+                                            </button>
+                                       
+                  
+                
+                
                     </div>
                 </div>
-                <svg style="align-items: center" width="700" height="500"></svg>
+                <h3 class="title"></h3>
+                <div class="tooltip-comp"></div>
+                <svg style="align-items: center" id="graph" width="700" height="500" display="none"></svg>
+
                 <h2 style = "display: flex; justify-content: center; align-items: center; font-size: 30px; color: white"></h2>
                 <div style = "height: 7%; width: 100%; padding: 2%"></div>
                 <div>
@@ -78,6 +176,7 @@
                 </div>
             </div>
             <svg></svg>
+            </div></div>
         </div>
        
     <!--<div id = "section2" style = "overflow-y: auto; ">-->
