@@ -22,14 +22,26 @@ router.get("/api/professor/:professor", (req, res) => {
     const connection = getConnection();
     let professorId = req.params.professor;
     let sqlQueryString = "";
+    let keys = [];
     if(isLetter(professorId.charAt(0))){
-    sqlQueryString = " instructor_name LIKE ?"
-    professorId = '%' + professorId + '%';
+        if(hasSpace(professorId)){
+    professorId = professorId.split(" ");
+    sqlQueryString = " instructor_name LIKE ? AND instructor_name LIKE ?"
+    let professorFirstName = '%' + professorId[0] + '%';
+    let professorLastName = '%' + professorId[1] + '%';
+    keys = [professorFirstName, professorLastName];
     }
     else{
-    sqlQueryString = " instructor_netid = ?"
+        sqlQueryString = " instructor_name LIKE ?"
+        professorId = '%' + professorId + '%';
+        keys = [professorId];
     }
-    var keys = [professorId];
+}
+    else{
+    sqlQueryString = " instructor_netid = ?"
+    keys = [professorId];
+    }
+    
 
     
     for(var key in req.query){
@@ -49,6 +61,13 @@ router.get("/api/professor/:professor", (req, res) => {
         res.json(rows)
     })
 })
+function hasSpace(str){
+    for(let index = 0; index < str.length; index++){
+        if(str[index] == ' ')
+        return true;
+    }
+    return false;
+}
 function isLetter(str) {
     return str.length === 1 && str.match(/[A-Z]/i);
   }
