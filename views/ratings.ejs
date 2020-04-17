@@ -31,13 +31,12 @@
                 
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <form class="form-inline my-2 my-lg-0 ml-auto">
-                    <form class="form-inline">
-                        <div class="md-form my-0">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                        </div>
-                        <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
-                    </form>
+                <form class="form-inline my-2 my-lg-0 ml-auto" action = "../Options" method = "POST">
+          
+                    <div class="md-form my-0">
+                      <div><input class="form-control wow" type="text" name = "searched" placeholder="Search" aria-label="Search"></div>
+                    </div>
+                    <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
                 </form>
             </nav>
         </header>
@@ -99,6 +98,14 @@
                                         </div> </label>
                                         
                                              </div>
+                                             <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" value="teachingAssistants" id="teaching_assistants">
+                                                         <label class="custom-control-label" for="teaching_assistants"><div class = "circle-with-text-rating"> 
+                                                             Rating of the teaching assistants
+                                                </div> </label>
+                                                
+                                                     </div>
+                                          
                                 </div>
                     </div>
                     <div class="col-10">
@@ -128,6 +135,11 @@
                                          View other ratings
                             </div> 
                                     </button>
+                                    <button type="submit" class="compareProf" style="background-color: transparent; border: none;"> 
+                                        <div class = "circle-with-text compareWithProf" style = "align-items: center; "> 
+                                           Compare with similar professors
+                                </div> 
+                                        </button>
                                     <button type="submit" class="circle-5-button button-rating" value="Grading is done fairly" style="background-color: transparent; border: none;"> 
                                         <div class = "circle-with-text circle-5" id="fairGrading" value="Grading is done fairly" style = "align-items: center;"> 
                                              View other ratings
@@ -143,11 +155,16 @@
                                              View other ratings
                                 </div> 
                                         </button>
-                                        <button type="submit" class="button-rating" style="background-color: transparent; border: none;" value="The instructor speaks and writes clearly""> 
+                                        <button type="submit" class="button-rating" style="background-color: transparent; border: none;" value="The instructor speaks and writes clearly"> 
                                             <div class = "circle-with-text" id="writesClearly" value="The instructor speaks and writes clearly" style = "align-items: center; "> 
                                                  View other ratings
                                     </div> 
                                             </button>
+                                            <button type="submit" class="button-rating" style="background-color: transparent; border: none;" name="Overall rating of the teaching assistants" value="Your overall rating of the teaching assistant s if applicable"> 
+                                                <div class = "circle-with-text" id="teachingAssistants" name="Overall rating of the teaching assistants" value="Your overall rating of the teaching assistant s if applicable" style = "align-items: center; "> 
+                                                     View other ratings
+                                        </div> 
+                                                </button>
                                        
                   
                 
@@ -156,7 +173,7 @@
                 </div>
                 <h3 class="title"></h3>
                 <div class="tooltip-comp"></div>
-                <svg style="align-items: center" id="graph" width="700" height="500" display="none"></svg>
+                <svg style="align-items: center" id="graph" width="900" height="500" display="none"></svg>
 
                 <h2 style = "display: flex; justify-content: center; align-items: center; font-size: 30px; color: white"></h2>
                 <div style = "height: 7%; width: 100%; padding: 2%"></div>
