@@ -20,16 +20,12 @@
   </head>
   <body style = "padding: 0px; margin: 0px;">
     <header style = "padding: 0px; margin: 0px; background-color: rgba(0, 48, 78, 1)7">
-      <nav class="navbar sticky-top navbar-dark navbar-expand-sm" style = "background-color: rgba(0, 48, 78, 1)">
+      <nav id = "navigation" class="navbar sticky-top navbar-dark navbar-expand-sm" style = "background-color: rgba(0, 48, 78, 1)">
         <!--<img src="https://scalar.usc.edu/works/new-and-improved/media/cwru_stacked_logo_blue_no_tag.jpg" height="30" class="d-inline-block align-top"
         alt="Case Western logo">-->
         <a class="navbar-brand header-image w-5 " href="#"><img src="img/header.png" class="w-50" alt=""></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
         <form class="form-inline my-2 my-lg-0 ml-auto">
-          <form class="form-inline" action = "/Options" method = "POST">
+          <form class="form-inline" action = "./Options" method = "POST">
               <div class="md-form my-0">
                 <div><input class="form-control wow" type="text" name = "searched" placeholder="Search" aria-label="Search"></div>
               </div>
@@ -38,29 +34,34 @@
         </form>
       </nav>
     </header>
-
-    <div id = "section1"class = "container-fluid" style = "width: 100%">
-      <div style = "background-color: transparent; height: 30%; width: 100%"></div>
-        <div class = "row" style = "width: 100%; margin: 0px; padding: 0px">
-            <div class = "col-md-2" style = "background-color: transparent"></div>
-            <div class = "wow fadeInDown col-md-8" style = "color: white; background-color: transparent; text-align: center; font-size: 55px">Search a class or professor</div>
-            <div class = "col-md-2"></div>
-        </div>
-      <div style = "height: 1.5%"></div>
-        <form action = "/Options" method = "POST">
+      <div id = "section1open"class = "container-fluid">
+        <div style = "background-color: transparent; height: 30%; width: 100%"></div>
           <div class = "row" style = "width: 100%; margin: 0px; padding: 0px">
-            <div class = "col-lg-2" style = "background-color: transparent"></div>
-            <div class = "col-lg-8" style = "background-color: transparent">
-              <div class = "row no-gutters justify-content-center" style = "overflow: hidden">
-                  <div><input size = "40" class="form-control wow slideInLeft" name="searched" type="text" placeholder="Search a class or professor" aria-label="Search"></div>
-                  <div><button class="btn aqua-gradient btn-rounded btn-md my-0 wow slideInRight" type="submit">Search</button></div>
+              <div class = "col-md-2" style = "background-color: transparent"></div>
+              <div class = "wow fadeInDown col-md-8" style = "color: white; background-color: transparent; text-align: center; font-size: 55px">Search a class or professor</div>
+              <div class = "col-md-2"></div>
+          </div>
+        <div style = "height: 1.5%"></div>
+        <form autocomplete="off" id = "try-again-form" action = "./Options"  method = "POST">
+          <div class = "row" style = "width: 100%; margin: 0px; padding: 0px">
+              <div class = "col-lg-2"></div>
+              <div class = "col-lg-8 row no-gutters justify-content-center">
+              <div class = "autocomplete-div">
+              <div><input style = "overflow: hidden; position: relative;" value = "" size = "40" id = "user-search-input" class="form-control wow fadeInLeft" type="text" name = "searched" placeholder="Search a class or professor" aria-label="Search"></div>
+              <div><button type = "button" style = "visibility: hidden" class="form-control button-fixup" id = "first-suggestion"></button></div>
+              <div><button type = "button" style = "visibility: hidden" class="form-control button-fixup" id = "second-suggestion"></button></div>
+              <div><button type = "button" style = "visibility: hidden" class="form-control button-fixup" id = "third-suggestion"></button></div>
+              <div style = "height: 1%; width: 100%; padding: 2%"></div>
               </div>
-            </div>
-            <div class = "col-lg-2" style = "background-color: transparent"></div>
-        </form>
-      </div>
-    </div>
-    <!--
+              <div><button class="btn aqua-gradient btn-rounded btn-md my-0 wow fadeInRight" type="submit">Search</button></div>
+              </div>
+              <div class = "col-lg-2"></div>
+          </div>
+              
+          </div>
+      </form>
+        </div>
+      </div><!--
     <div id = "section2">
       <div class = "wow fadeInLeft">
         <h1>Features</h1>
@@ -85,5 +86,54 @@
     $(document).ready(function() {
     new WOW().init();
     });
+    searchBarInput = document.getElementById("user-search-input");
+        var count = 0;
+        var optionsArr;
+        let filteredArr = [];
+        var firstSuggestion = document.getElementById("first-suggestion");
+        var secondSuggestion = document.getElementById("second-suggestion");
+        var thirdSuggestion = document.getElementById("third-suggestion");
+        var suggestionsArr = [firstSuggestion, secondSuggestion, thirdSuggestion];
+        var newFilteredArr;
+        var searchUniques = [];
+        var itemsFound = {};
+
+        searchBarInput.addEventListener("input", async function(event){
+            if(event.target.value.length == 1){
+                optionsArr = await fetch(`../api/professor/${event.target.value}`);
+                optionsArr = await optionsArr.json();
+                for(i = 0; i < optionsArr.length; i++){
+                    filteredArr.push(optionsArr[i].instructor_name);
+                }
+            }
+            else{
+                newFilteredArr = filteredArr.filter(option => option.toLowerCase().includes(event.target.value.toLowerCase()));
+                searchUniques = [];
+                itemsFound = {};
+                for(i = 0; i < newFilteredArr.length; i++) {
+                    var stringified = JSON.stringify(newFilteredArr[i]);
+                    if(itemsFound[stringified]) { continue; }
+                    searchUniques.push(newFilteredArr[i]);
+                    itemsFound[stringified] = true;
+                }
+            }
+            for(i = 0; i < searchUniques.length && i < 3; i++){
+                suggestionsArr[i].innerHTML = "<i class='fa fa-search'></i>" + searchUniques[i];
+                suggestionsArr[i].setAttribute("style", "visibility: visible; border-radius: 0px");
+            }
+            for(var i = searchUniques.length; i < 3; i++){
+                suggestionsArr[i].setAttribute("style", "visibility: hidden");
+            }
+        });
+        for(var i = 0; i < suggestionsArr.length; i++){
+            console.log(suggestionsArr[i]);
+            suggestionsArr[i].addEventListener("click", function(event){
+                if(event.target.getAttribute("style").includes("visible")){
+                    searchBarInput.value = event.target.innerText;
+                    var form = document.getElementById("try-again-form");
+                    form.submit();
+                }
+            });
+        }
   </script>
 </html>
