@@ -31,9 +31,6 @@ h1{
 .wow {
   visibility: hidden;
 }
-.graph{
-  display: none;
-}
 .rating-text{
   line-height: 16px;
 }
@@ -52,6 +49,16 @@ h1{
   position: relative;
   width: 100%;
 }
+svg{
+  color: #fff;
+}
+text{
+  color: #fff;
+}
+.legend{
+  color: #fff;
+}
+
 .tooltip-comp {
   position: absolute;
   display: none;
@@ -60,9 +67,9 @@ h1{
   background: #515A5A;
   border: 0 none;
   border-radius: 4px;
-  color: #F8786B;
-  font: 12px sans-serif;
-  padding: 5px;
+  color: #F1F3F3;
+  font: 0.8rem sans-serif;
+  padding: 0.4em;
   text-align: center;
 } 
 @keyframes slideUp {
@@ -104,6 +111,7 @@ h1{
   margin-left: 20%;
   margin-top: 5%;
 }
+
 .line {
   fill: none;
   stroke: rgb(170, 218, 219);
@@ -176,6 +184,8 @@ h1{
   color: rgb(153, 220, 221);
   margin-top: 20%;
   padding: 1rem;
+}.button-rating{
+  display:none;
 }
 .hover-line {
   stroke: rgb(153, 220, 221);
@@ -186,3 +196,9 @@ h1{
   #section2 {padding-top:50px;height:100%; z-index: 1; color: #fff; background-color: rgb(44, 59, 141)}
   #section3 {padding-top:50px;height:100%;color: #fff; background-color: #ff9800;}
   #section41 {padding-top:50px;height:500px;color: #fff; background-color: #00bcd4;}
+  @media only screen and (max-width: 600px){
+    #mainGraph{
+      height: 200px;
+      width: 420px;
+    }
+  }

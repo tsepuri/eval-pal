@@ -1,6 +1,23 @@
 $(document).ready(function() {
     new WOW().init();
     });
+    if($(window).width() < 600){
+        d3.select("svg")
+                    .attr("height", 100)
+                    .attr("width", 240);
+    }
+    $(window).on('resize', function() {
+        if($(window).width() < 600){
+            d3.select("svg")
+                        .attr("height", 250)
+                        .attr("width", 450);
+        }
+        else if($(window).width() > 600){
+            d3.select("svg")
+                        .attr("height", 500)
+                        .attr("width", 900)
+        }
+      });
     let data = document.currentScript.getAttribute('data');
     let request = new XMLHttpRequest();
     let userInput = data;
@@ -24,13 +41,17 @@ $(document).ready(function() {
                  let circle = document.querySelector('.circle-with-text');
                 fillCircle(jsonData, circle, "Your overall rating of the instructor");
                 circle.style.display = 'flex';
+                circle.parentElement.style.display = 'flex';
                 document.querySelector('.compareWithProf').style.display = 'flex';
                 document.querySelector('.circle-2').style.display= 'flex';
+                document.querySelector('.compareWithProf').parentElement.style.display = 'flex';
+                document.querySelector('.circle-2').parentElement.style.display= 'flex';
                 fillCircle(jsonData, document.querySelector('#courseRating'), document.querySelector('#courseRating').getAttribute("value"));
                 if(fillCircle(jsonData, document.querySelector('#fairGrading'), document.querySelector('#fairGrading').getAttribute("value")) == -1){
                     
+                    document.querySelector('#fairGrading').parentElement.style.display = 'none';
                     document.querySelector('#fairGrading').style.display = 'none';
-                    document.querySelector('#grading_fairly').style.display = 'none';
+                    document.querySelector('.fairlyGraded').style.display = 'none';
                 }
                 activeRatings = ["Your overall rating of the instructor", "Your overall rating of the course", "Grading is done fairly"];
                 if(userInput.includes("subject")){
@@ -49,7 +70,7 @@ $(document).ready(function() {
                     let professorButton = document.querySelector('.professor');
                      professorButton.innerHTML = 'Browse results for '+data[0].instructor_name;
                     professorButton.setAttribute("href", "../professor/"+hyphenate(data[0].instructor_name));
-                    professorButton.setAttribute("display", null);
+                    professorButton.setAttribute("display", "none");
                     
                 }
                 else{
@@ -77,6 +98,7 @@ $(document).ready(function() {
                 
                 let circle = document.querySelector('.circle-with-text');
                 circle.style.display = 'flex';
+                circle.parentElement.style.display = 'flex';
                 let avg = average(jsonData, "Your_overall_rating_of_the_course");
                  circle.innerHTML = `<span class="rating-number">${Math.round(avg[0]*100) / 100} <br /> <small style="font-size:30%;">Overall Rating of the Course<br/><small style="font-size:50%">Based on ${avg[1]} responses out of ${avg[2]} students</small></small>`;
                  document.querySelector('.button-rating').value = "Your overall rating of the course"
@@ -125,8 +147,8 @@ $(document).ready(function() {
                         d3.select("svg")
                             .attr("display", "block");
        let svg = d3.select("svg"),
-margin = {top: 20, right: 70, bottom: 30, left: 70},
-padding = {left: 20},
+margin = {top: +svg.attr("height")/25, right: +svg.attr("width")/12.86, bottom: +svg.attr("height")/16.67, left: +svg.attr("width")/12.86},
+padding = {left: +svg.attr("width")/45},
 width = +svg.attr("width") - margin.left - margin.right,
 height = +svg.attr("height") - margin.top - margin.bottom
 ;
@@ -318,25 +340,40 @@ $(".button-rating").click(function(){
        
             $('input[type="checkbox"]').click(async function(){
                 let value = $(this).attr("value");
+                let notAvaialble = false;
                 if($(this).is(":checked")){
                     
                     let circle = document.querySelector(`#${value}`);
                     if(circle.getAttribute("name")){
-                    fillCircle(jsonData, circle, circle.getAttribute("value"), circle.getAttribute("name"));
+                    if(fillCircle(jsonData, circle, circle.getAttribute("value"), circle.getAttribute("name")) == -1){
+                        
+                        $(this).prop("checked", false);
+                        alert("This rating is not available for this professor");
+                        notAvaialble = true;
+
+                    }
                     }
                     else{
-                    fillCircle(jsonData, circle, circle.getAttribute("value"));
+                    if(fillCircle(jsonData, circle, circle.getAttribute("value")) == -1){
+                        
+                        $(this).prop("checked", false);
+                        alert("This rating is not available for this professor");
+                        notAvaialble = true;
                     }
+                    }
+                    if(!notAvaialble){
                     activeRatings.push(circle.getAttribute("value"));
                     compData = await compareWithCourse(comparison, activeRatings, jsonData);
                     compGraph(compData, "compData");
                     d3.select(".title")
                         .text(requiredTextForComp);
+                    }
                 }
                 else if($(this).is(":not(:checked)")){
                     
                     let circle = document.querySelector(`#${value}`)
                     circle.style.display="none";
+                    circle.parentElement.style.display = 'none';
                     activeRatings.splice(activeRatings.indexOf(circle.getAttribute("value")), 1);
                     compData = await compareWithCourse(comparison, activeRatings, jsonData);
                     compGraph(compData, "compData");
@@ -375,7 +412,7 @@ d3.select('#opts')
             d3.select("svg")
             .attr("display", "block");
             let svg = d3.select("svg"),
-margin = {top: 20, right: 70, bottom: 30, left: 70},
+margin = {top: +svg.attr("height")/25, right: +svg.attr("width")/12.86, bottom: +svg.attr("height")/16.67, left: +svg.attr("width")/12.86},
 width = +svg.attr("width") - margin.left - margin.right,
 height = +svg.attr("height") - margin.top - margin.bottom
 let divTooltip = d3.select("div.tooltip-comp")
@@ -485,6 +522,8 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                     .style("stroke-opacity", "0");
                 
             })
+            .append("a")
+            .attr("href", "www.google.com")
             // setting up transition, delay and duration
             .transition()
             .delay(function(d) {
@@ -516,7 +555,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                     let newRating = ((id.rating*id.responses) + (data[i][ratingType]*data[i].responses))/(data[i].responses + id.responses);
                     newRating = Math.round(newRating*100) / 100.0;
                     arr[id.arrayID].value = newRating;
-                    yearMap.set(yearAndMonth, {arrayID:id.arrayID, semester : data[i].term_name, rating:newRating, responses:(id.responses+data[i].responses)});
+                    yearMap.set(yearAndMonth, {arrayID:id.arrayID, semester : data[i].term_name, rating:newRating, responses:(id.responses+data[i].responses), enrollment:(id.enrollment+data[i].enrollment)});
                     
                 }
                 else{
@@ -526,7 +565,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                     value: +data[i][ratingType]
                     
                 }); 
-                yearMap.set(yearAndMonth, {arrayID:(arr.length-1), rating : +data[i][ratingType], semester : data[i].term_name, responses : data[i].responses});
+                yearMap.set(yearAndMonth, {arrayID:(arr.length-1), rating : +data[i][ratingType], semester : data[i].term_name, responses : data[i].responses, enrollment : data[i].enrollment});
             }
            }
 
@@ -534,23 +573,29 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 return [arr, yearMap];}
                 function fillCircle(data, circle, value){
                     circle.style.display= 'flex';
+                    circle.parentElement.style.display = 'flex';
                     let avg = average(data, hyphenate(value));
                     
                 circle.innerHTML = `<span class="rating-number">${Math.round(avg[0]*100) / 100} <br /> <small style="font-size:30%;">${value} <br /><small style="font-size:50%">Based on ${avg[1]} responses<br /><small style="font-size:100%"> out of ${avg[2]} students</small></small></small>`;
                     
                 }
         function fillCircle(data, circle, value, name){
-            circle.style.display= 'flex';
+            
             let avg = average(data, hyphenate(value));
             if(avg[0] == -1){
                 return -1;
             }
+            else{
+            circle.style.display= 'flex';
+            circle.parentElement.style.display = 'flex';
+            
             if(name){
                 circle.innerHTML = `<span class="rating-number">${Math.round(avg[0]*100) / 100} <br /> <small style="font-size:30%;">${name} <br /><small style="font-size:50%">Based on ${avg[1]} responses<br /><small style="font-size:100%"> out of ${avg[2]} students</small></small></small>`;
             }
             else{
                 circle.innerHTML = `<span class="rating-number">${Math.round(avg[0]*100) / 100} <br /> <small style="font-size:30%;">${value} <br /><small style="font-size:50%">Based on ${avg[1]} responses<br /><small style="font-size:100%"> out of ${avg[2]} students</small></small></small>`;
             }
+        }
         }
                 function yearOf(data) {
                 
@@ -589,19 +634,20 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
         function sortNumber(a, b){
             return a.year - b.year;
         }
-        function average(array, property){
+        function average(array, property, instructor){
             
             let count = 0.0;
             let sum = 0;
             let enrollmentCount = 0;
             for(let index = 0; index < array.length; index++){
-                if(array[index][property]){
-                    
+                if((array[index][property])){
+                    if(!(instructor != null && array[index].instructor_name != instructor)){
                     let rating = +array[index][property];
                     let responses = array[index].responses;
                     enrollmentCount = enrollmentCount + array[index].enrollment;
                     sum = sum + (rating*responses);
                     count = count + responses;
+                    }
                 }
             }
             if(count > 0)
@@ -623,7 +669,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 subjectData = await subjectData.json();
                 compArray[index] = {};
                 for(let index1 = 0; index1 < activeRatings.length && index1<=3;index1++){
-                        compArray[index][activeRatings[index1]] = average(subjectData, hyphenate(activeRatings[index1]))[0];
+                        compArray[index][activeRatings[index1]] = average(subjectData, hyphenate(activeRatings[index1]), data[0].instructor_name)[0];
                 }
                 compArray[index]["Rating"] = subjectArray[index];
             }
@@ -632,6 +678,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
             return compArray;
         }
         async function compareWithProfessors(subjectCode, subject, activeRatings, data){
+            let responses = new Map();
             let compArray = []
             let profArray = [data[0].instructor_name]
             let subjectData = await fetch(`../api/subject/${subjectCode}`);
@@ -663,16 +710,26 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
         }
         async function compareWithCourse(subjectCode, activeRatings, data){
             
+            let responses = new Map();
             compArray = []
             subjectData = await fetch(`../api/subject/${subjectCode}`);
             subjectData = await subjectData.json();
-
+            let comparison = "";
+            if(subjectCode[4] && (subjectCode[4]>='0'&&subjectCode[4]<='9'))
+                comparison = `All ${subjectCode} professors`;
+            else
+                comparison = `All ${subjectCode} department professors`
             for(let index = 0; index < activeRatings.length && index<=3; index++){
-                compArray.push({
+                compArray[index] = {};
+                compArray[index][data[0].instructor_name] = average(data, hyphenate(activeRatings[index]))[0];
+                compArray[index][comparison] = average(subjectData, hyphenate(activeRatings[index]))[0];
+                compArray[index]["Rating"] = activeRatings[index];
+                responses.set(activeRatings[index], {ProfResponses:average(data, hyphenate(activeRatings[index]))[1], CompResponses:average(subjectData, hyphenate(activeRatings[index]))[1]})
+                /*compArray.push({
                     Professor: average(data, hyphenate(activeRatings[index]))[0],
                     Comparison: average(subjectData, hyphenate(activeRatings[index]))[0],
                     Rating: activeRatings[index]
-                })
+                })*/
 
             }
             return compArray;

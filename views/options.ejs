@@ -28,13 +28,12 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <form class="form-inline my-2 my-lg-0 ml-auto">
-                    <form class="form-inline">
-                        <div class="md-form my-0">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                        </div>
-                        <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
-                    </form>
+                <form class="form-inline my-2 my-lg-0 ml-auto" action = "../Options" method = "POST">
+          
+                    <div class="md-form my-0">
+                      <div><input class="form-control wow" type="text" name = "searched" placeholder="Search" aria-label="Search"></div>
+                    </div>
+                    <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
                 </form>
             </nav>
         </header>
@@ -55,7 +54,7 @@
                 <h2 style = "display: flex; justify-content: center; align-items: center; font-size: 30px; color: white"></h2>
                 <div style = "height: 7%; width: 100%; padding: 2%"></div>
                 <div>
-                    <form action = "./Options"  method = "POST">
+                    <form action = "../Options"  method = "POST">
                         <div class = "row" style = "width: 100%; margin: 0px; padding: 0px">
                             <div class = "col-lg-2"></div>
                             <div class = "col-lg-8">
