@@ -3,6 +3,7 @@ $(document).ready(function() {
     });
 
     let httprequest = new XMLHttpRequest();
+    if(document.currentScript.getAttribute('data')){
     let usersInput = document.currentScript.getAttribute('data');
     httprequest.open('GET', '../api/professor/' + usersInput, true); 
     httprequest.onload = function(){
@@ -49,7 +50,7 @@ $(document).ready(function() {
                 window.scrollTo(0, 0);
             }
     }
-
+    }
     window.addEventListener("resive", function(event){
         if(document.body.scrollHeight > document.getElementById("section1").offsetHeight){
                 div = document.createElement('div');
