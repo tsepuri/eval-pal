@@ -165,23 +165,29 @@
                 
                     </div>
                 </div>
-                <h3 class="title"></h3>
+                <h4 class="title"></h4>
                 <div class="tooltip-comp"></div>
                 <svg style="align-items: center" id="mainGraph" height="500" width="900" display="none"></svg>
 
                 <h2 style = "display: flex; justify-content: center; align-items: center; font-size: 30px; color: white"></h2>
                 <div style = "height: 7%; width: 100%; padding: 2%"></div>
                 <div>
-                    <form action = "../Options" method = "POST">
+                    <form autocomplete="off" id = "try-again-form" action = "../Options"  method = "POST">
                         <div class = "row" style = "width: 100%; margin: 0px; padding: 0px">
                             <div class = "col-lg-2"></div>
-                            <div class = "col-lg-8">
-                            <div class = "row no-gutters justify-content-center" style = "overflow: hidden">
-                                <div><input size = "40" class="form-control wow" type="text" name = "searched" placeholder="Search a class or professor" aria-label="Search"></div>
-                                <div><button class="btn aqua-gradient btn-rounded btn-md my-0" type="submit">Search</button></div>
+                            <div class = "col-lg-8 row no-gutters justify-content-center">
+                            <div class = "autocomplete-div">
+                            <div><input style = "overflow: hidden; position: relative;" value = "" size = "40" id = "user-search-input" class="form-control wow" type="text" name = "searched" placeholder="Search a class or professor" aria-label="Search"></div>
+                            <div><button type = "button" style = "visibility: hidden" class="form-control button-fixup" id = "first-suggestion"></button></div>
+                            <div><button type = "button" style = "visibility: hidden" class="form-control button-fixup" id = "second-suggestion"></button></div>
+                            <div><button type = "button" style = "visibility: hidden" class="form-control button-fixup" id = "third-suggestion"></button></div>
+                            <div style = "height: 1%; width: 100%; padding: 2%"></div>
                             </div>
+                            <div><button class="btn aqua-gradient btn-rounded btn-md my-0" type="submit">Search</button></div>
                             </div>
                             <div class = "col-lg-2"></div>
+                        </div>
+                            
                         </div>
                     </form>
                 </div>
@@ -201,8 +207,10 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="/js/mdb.min.js"></script>
-    
+    <script type="text/javascript" src="/js/app.js" ></script>
     <script type="text/javascript" src="/js/viz.js" data = "<%= data %>" ></script>
+    
+
 
     <!-- Your custom scripts (optional) -->
     

@@ -46,14 +46,16 @@ $(document).ready(function() {
                 document.querySelector('.circle-2').style.display= 'flex';
                 document.querySelector('.compareWithProf').parentElement.style.display = 'flex';
                 document.querySelector('.circle-2').parentElement.style.display= 'flex';
+                activeRatings = ["Your overall rating of the instructor", "Your overall rating of the course", "Grading is done fairly"];
                 fillCircle(jsonData, document.querySelector('#courseRating'), document.querySelector('#courseRating').getAttribute("value"));
                 if(fillCircle(jsonData, document.querySelector('#fairGrading'), document.querySelector('#fairGrading').getAttribute("value")) == -1){
                     
                     document.querySelector('#fairGrading').parentElement.style.display = 'none';
                     document.querySelector('#fairGrading').style.display = 'none';
-                    document.querySelector('.fairlyGraded').style.display = 'none';
+                    $('#grading_fairly').prop("checked", false);
+                    activeRatings.splice(activeRatings.indexOf("Grading is done fairly", 1));
                 }
-                activeRatings = ["Your overall rating of the instructor", "Your overall rating of the course", "Grading is done fairly"];
+                
                 if(userInput.includes("subject")){
                     userDisplay = userDisplay + " teaching "+data[0].subject;
                     if(userInput.includes("catalog_nbr")){
@@ -62,7 +64,7 @@ $(document).ready(function() {
                         compData = await compareWithCourse(comparison , activeRatings, jsonData);
                         
                         d3.select('.title')
-                .text(`${data[0].instructor_name} teaching in ${data[0].subject}${data[0].catalog_nbr} compared to the course as a whole`)
+                .text(`${data[0].instructor_name} teaching in ${data[0].subject}${data[0].catalog_nbr} compared to the course as a whole`.toUpperCase())
                 requiredTextForComp = `${data[0].instructor_name} teaching in ${data[0].subject}${data[0].catalog_nbr} compared to the course as a whole`;
                     }
                     document.querySelector('.circle-2').innerHTML = `View full page of ${data[0].instructor_name}`
@@ -82,7 +84,7 @@ $(document).ready(function() {
                     compData = await compareWithCourse(comparison, activeRatings, jsonData);
                     
                     d3.select('.title')
-                .text(`${data[0].instructor_name} teaching in ${data[0].subject} compared to the department as a whole`)
+                .text(`${data[0].instructor_name} teaching in ${data[0].subject} compared to the department as a whole`.toUpperCase())
                     requiredTextForComp = `${data[0].instructor_name} teaching in ${data[0].subject} compared to the department as a whole`;
                 }
                 d3.select('.title')
@@ -104,7 +106,7 @@ $(document).ready(function() {
                  document.querySelector('.button-rating').value = "Your overall rating of the course"
                  ratingType = hyphenate("Your overall rating of the course");
                 d3.select('.title')
-                .text("Your overall rating of the course");
+                .text("Your overall rating of the course".toUpperCase());
                 let select = document.querySelector('#opts');
                 select.value = "Your overall rating of the course";
                 userDisplay = "Results for "+data[0].subject;
@@ -142,7 +144,7 @@ $(document).ready(function() {
                     d3.select(".title")
                     .style("margin-top", "1em")
                     .style("margin-left", "1em")
-                        .html(`<i>${ratingName}</i> over the years`);
+                        .html(`<i>${ratingName}</i> over the years`.toUpperCase());
                     
                         d3.select("svg")
                             .attr("display", "block");
@@ -310,14 +312,14 @@ $(".button-rating").click(function(){
       data = parsedData[0];
       yearMap = parsedData[1];
       
-        data.sort(sortNumber); console.log(ratingName);
+        data.sort(sortNumber); 
             update(data, newRating, yearMap, ratingName);
         
     });
     $(".compareProf").click(async function(){
        
   d3.select('.title')
-    .text(`${jsonData[0].instructor_name} compared to similar professors`);
+    .text(`${jsonData[0].instructor_name} compared to similar professors`.toUpperCase());
      parsedData = await compareWithProfessors(comparison, "", activeRatings, jsonData);
       
             compGraph(parsedData, "profWise");
@@ -327,7 +329,7 @@ $(".button-rating").click(function(){
     $("#subject-wise").click(async function(){
     compData = await compareWithSubjects(activeRatings, jsonData)
     d3.select(".title")
-        .text("Subject wise comparison")
+        .text("Subject wise comparison".toUpperCase())
     
     compGraph(compData, "subjectWise");
         //underConstruction();
@@ -366,7 +368,7 @@ $(".button-rating").click(function(){
                     compData = await compareWithCourse(comparison, activeRatings, jsonData);
                     compGraph(compData, "compData");
                     d3.select(".title")
-                        .text(requiredTextForComp);
+                        .text(requiredTextForComp.toUpperCase());
                     }
                 }
                 else if($(this).is(":not(:checked)")){
@@ -378,7 +380,7 @@ $(".button-rating").click(function(){
                     compData = await compareWithCourse(comparison, activeRatings, jsonData);
                     compGraph(compData, "compData");
                     d3.select(".title")
-                    .text(requiredTextForComp);
+                    .text(requiredTextForComp.toUpperCase());
                 }
         });
 
@@ -386,7 +388,7 @@ d3.select('#opts')
 .on('change', function() {
   let newRating = d3.select(this).property('value');
   d3.select('.title')
-    .text(newRating);
+    .text(newRating.toUpperCase());
     let yearMap = new Map();
      parsedData = parseData(jsonData, hyphenate(newRating), yearMap);
       data = parsedData[0];
