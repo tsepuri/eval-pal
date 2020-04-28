@@ -8,7 +8,12 @@
   max-width: 160px;
   padding-top: 0.5rem;
 }
-.result-hover:hover {
+.subject-hover:hover {
+  background-color: rgba(94, 94, 2, 0.756);
+  color: #fff;
+}
+.prof-hover:hover {
+  color: #fff;
   background-color: rgba(0, 48, 78, 1);
 }
 .rating-number{
@@ -24,9 +29,11 @@
   justify-content: center;
   align-items: center;
   color: white;
+  height: 100%
 }
+
 h1{
-    font-size: 60px;
+    font-size: 55px;
 }
 .wow {
   visibility: hidden;
@@ -58,7 +65,10 @@ text{
 .legend{
   color: #fff;
 }
+.autocomplete-div{
+  z-index: 9999;
 
+}
 .tooltip-comp {
   position: absolute;
   display: none;
@@ -192,13 +202,44 @@ text{
   stroke-width: 1px;
   stroke-dasharray: 2,4;
 }
+.searchBarOption{
+  background: white;
+}
+
+#user-search-input{
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.button-fixup:hover{
+  cursor: default; 
+  background-color: whitesmoke;
+}
+
+.button-fixup{
+  cursor: default; 
+  border: none; 
+  text-align: left; 
+  cursor: pointer; 
+  overflow: hidden; 
+  position: relative; 
+  cursor:default;
+  display:inline-block;
+  border-radius: 0px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-top:-4px;
+}
+
+#section1open {position: absolute; bottom: 0; padding-top:50px;height:100%; z-index: 0; background-image: url("https://images.squarespace-cdn.com/content/v1/54734291e4b0a7be4111f6b8/1418770732190-XT8QQ1WNST1IYZIFVV5M/ke17ZwdGBToddI8pDm48kBjq-a6mlEUM2zlDIWroUwcUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dgq7TUig9iTCN4FH0Uw6ewH_jTjF0hmOMRwNm66WLfgLOpYghpI-Ha_TwZsqqmJXng/casewestern-2.jpg"); width: 100%; padding: 0 !important; margin: 0 auto !important; background-size: cover; overflow: hidden;}
 #section1 {padding-top:50px;height:100%; z-index: 0; background-image: url("https://images.squarespace-cdn.com/content/v1/54734291e4b0a7be4111f6b8/1418770732190-XT8QQ1WNST1IYZIFVV5M/ke17ZwdGBToddI8pDm48kBjq-a6mlEUM2zlDIWroUwcUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dgq7TUig9iTCN4FH0Uw6ewH_jTjF0hmOMRwNm66WLfgLOpYghpI-Ha_TwZsqqmJXng/casewestern-2.jpg"); width: 100%; padding: 0 !important; margin: 0 auto !important; background-size: cover; overflow: hidden;}
-  #section2 {padding-top:50px;height:100%; z-index: 1; color: #fff; background-color: rgb(44, 59, 141)}
-  #section3 {padding-top:50px;height:100%;color: #fff; background-color: #ff9800;}
-  #section41 {padding-top:50px;height:500px;color: #fff; background-color: #00bcd4;}
-  @media only screen and (max-width: 600px){
-    #mainGraph{
-      height: 200px;
-      width: 420px;
-    }
+#section2 {padding-top:50px;height:100%; z-index: 1; color: #fff; background-color: rgb(44, 59, 141)}
+#section3 {padding-top:50px;height:100%;color: #fff; background-color: #ff9800;}
+#section41 {padding-top:50px;height:500px;color: #fff; background-color: #00bcd4;}
+@media only screen and (max-width: 600px){
+  #mainGraph{
+    height: 200px;
+    width: 420px;
   }
+}
