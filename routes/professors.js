@@ -49,7 +49,6 @@ router.get("/api/professor/:professor", (req, res) => {
         keys.push(req.query[key]);
     }
     const queryString = "SELECT * FROM summer WHERE"+sqlQueryString;
-    console.log(keys);
     connection.query(queryString, keys, (err, rows, fields) => {
         if(err){
             throw err;
