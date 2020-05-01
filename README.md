@@ -1,6 +1,6 @@
 # eval-pal
 
-Eval Pal is a website built on the last ten years of Case Western Reserve University's course evaluation data and designed for its students. It is based on the idea of visualizing and analyzing the evaluation data , and making it much more accessible to students. On completion, the website is planned for integration with the [CWRU Student Information System](sis.case.edu).
+Eval Pal is a website built on the last ten years of Case Western Reserve University's course evaluation data and designed for its students. It is based on the idea of visualizing and analyzing the evaluation data , and making it much more accessible to students. On completion, the website is planned for integration with the [CWRU Student Information System](sis.case.edu). The working website can be found [here](https://metal-filament-270618.appspot.com/). 
 
 
 ## Getting started
