@@ -23,6 +23,112 @@
   font-size: 1rem;
 }
 
+.optionTypeStyle{
+  width: 100%; 
+  padding-top: 2%; 
+  border-bottom-style: solid; 
+  border-width: 2px; 
+  border-color: rgba(42, 45, 202, 0.753);
+}
+.optionsdisplay{
+  width: 60%; 
+  margin-left:20%; 
+  background-color: rgb(1, 35, 56); 
+  opacity: .85; 
+  z-index: 2; 
+  position: absolute;
+}
+.navigationbackground{
+  background-color: rgba(0, 48, 78, 1);
+}
+
+.firstBarrier{
+  height: 4%; 
+  width: 100%; 
+  padding: 2%;
+}
+
+.secondBarrier{
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  font-size: 30px; 
+  color: white;
+}
+
+.thirdBarrier{
+  height: 7%; 
+  width: 100%; 
+  padding: 2%;
+}
+
+.searchText{
+  color: white; 
+  background-color: transparent; 
+  text-align: center; 
+  font-size: 55px;
+}
+
+.searchTextDiv{
+  background-color: transparent; 
+  height: 30%; 
+  width: 100%;
+}
+
+.smallOptionsBarrier{
+  height: 1.5%;
+}
+
+.searchTextStyle{
+  width: 100%; 
+  margin: 0px; 
+  padding: 0px;
+}
+
+.bodyStyle{
+  padding: 0px; 
+  margin: 0px;
+}
+.transparentBackground{
+  background-color: transparent;
+}
+.autocompletestyle{
+  width: 100%;
+  margin: 0px; 
+  padding: 0px;
+}
+.backgroundstyle{
+  background-color: transparent; 
+  height: 10%; 
+  width: 100%;
+}
+.headerStyle{
+  padding: 0px; 
+  margin: 0px; 
+  background-color: rgba(0, 48, 78, 1);
+}
+.results{
+  display: flex; 
+  justify-content: center; 
+  text-align: center; 
+  align-items: center; 
+  font-size: 50px; 
+  color: white;
+}
+.title{
+  background-color: transparent;
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  color: white; 
+  font-size:25px; 
+  font-weight: bolder
+}
+
+.searchbar{
+  overflow: hidden; 
+  position: relative;
+}
 .result-option{
   background-color: transparent;
   display: flex;
