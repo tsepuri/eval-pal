@@ -27,7 +27,7 @@ npm install -g
 metal-filament-270618:us-east1:evalpal
 ```
 
-*The required key file, is a .json file that will be provided on reaching out. 
+*The required key file, is a .json file that will be provided on reaching out. After creating the CloudSQL folder, please add it to the repository.  
 
 *The .env_sample file in the respository has to be replaced with a .env file. The SQL_USERNAME_HERE and SQL_PASSWORD_HERE fields have to be replaced by the username and password that can be obtained by reaching out. 
 
