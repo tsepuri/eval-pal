@@ -1,29 +1,37 @@
-$(document).ready(function() {
-    new WOW().init();
-    });
+
     if($(window).width() < 600){
+        
         d3.select("svg")
-                    .attr("height", 100)
-                    .attr("width", 240);
+                    .attr("height", 200)
+                    .attr("width", 480);
+        d3.select("#container-rating-options")
+            .attr("class", ".shrink");
+                
     }
     $(window).on('resize', function() {
         if($(window).width() < 600){
             d3.select("svg")
                         .attr("height", 250)
                         .attr("width", 450);
+           
         }
         else if($(window).width() > 600){
             d3.select("svg")
                         .attr("height", 500)
-                        .attr("width", 900)
+                        .attr("width", 900);
+           
         }
       });
+      $(document).ready(function() {
+        new WOW().init();
+       
+        });
     let data = document.currentScript.getAttribute('data');
     let request = new XMLHttpRequest();
     let userInput = data;
    
-    request.open('GET', userInput, true); ;
-    
+    request.open('GET', userInput, true); 
+       
         request.onload = async function(){
             let i = 0;
             let colOne;
@@ -110,7 +118,7 @@ $(document).ready(function() {
                 let select = document.querySelector('#opts');
                 select.value = "Your overall rating of the course";
                 userDisplay = "Results for "+data[0].subject;
-                var matches = userInput.match(/\d+/g);
+                let matches = userInput.match(/\d+/g);
                 if (matches != null) {
                             userDisplay+=data[0].catalog_nbr;
                     }
@@ -211,7 +219,7 @@ tooltip.append("line")
     .attr("x1", width)
     .attr("x2", width);
     svg.on("mousemove", function() {
-        var x0 = x.invert(d3.mouse(this)[0]),
+        const x0 = x.invert(d3.mouse(this)[0]),
         i = bisectDate(data, x0, 1),
         d0 = data[i - 1],
         d1 = data[i],
@@ -222,27 +230,11 @@ tooltip.append("line")
           .attr("transform", "translate(" + x(d.year) + "," + y(d.value) + ")")
           .call(callout, `Rating = ${d.value.toLocaleString(undefined, {style: "decimal"})} 
           Responses = ${yearMap.get(d.oldYear).responses}
-          Semester = ${yearMap.get(d.oldYear).semester}
-          Year = ${d.year.toLocaleString(undefined, {year: "numeric"})}`);
+        Semester = ${yearMap.get(d.oldYear).semester}`);
+          //Year = ${d.year.toLocaleString(undefined, {year: "numeric"})
     });
   
     svg.on("mouseleave", () => tooltip.call(callout, null));
-/*var focus = g.append("g")
-    .attr("class", "focus")
-    .style("display", "none");
-*/
-
-
-/*focus.append("circle")
-    .attr("r", 6);
-
-
-focus.append("text")
-    .attr("class", "ticker")
-    .attr("x", 15)
-    .attr("dy", ".31em")
-
-*/
 svg.append("rect")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .attr("class", "overlay")
@@ -258,9 +250,7 @@ function mousemove() {
       d0 = data[i - 1],
       d1 = data[i],
       d = x0 - d0.year > d1.year - x0 ? d1 : d0;
-  //focus.attr("transform", "translate(" + x(d.year) + "," + y(d.value) + ")");
-  //focus.select("text").text(function() { return d.value; })
-  //                                  .style("fill","#fff")
+ 
 
  tooltip.select(".x-hover-line").attr("y2", height - y(d.value));
   tooltip.select(".y-hover-line").attr("x2", width + width);
@@ -332,7 +322,7 @@ $(".button-rating").click(function(){
         .text("Subject wise comparison".toUpperCase())
     
     compGraph(compData, "subjectWise");
-        //underConstruction();
+       
     })
 
             $("#view-more").click(function() {
@@ -447,7 +437,14 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x0).tickSizeOuter(0))
     .call(g => g.select(".domain").remove())
-    .attr("font-size", 8);
+    .attr("font-size", 12)
+    .call(g => g.selectAll(".tick")
+        .call(g => g.select("text")
+        .call(wrap, 150))
+        );
+        
+    
+
     let yAxis = g => g
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y).ticks(null, "s"))
@@ -499,7 +496,6 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
             .attr("fill", d => color(d.key))
             .on('mouseover ', function(d) {
                 d3.select(this).transition()
-                //.attr("fill", "#F8786B")
                     .style("opacity", "0.5")
                     .style("stroke", "Black")
                     .style("stroke-width", "2px")
@@ -508,24 +504,36 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                
                 divTooltip.style("display", "block")
                 divTooltip.transition().duration(200).style('opacity', 0.9);
-                divTooltip.html(`<span>${(d.key)}</span><br>Rating: <span>${Math.round(d.value*100)/100}</span>`)
-                  .style('left', `${d3.event.layerX}px`)
+                if(dataType == 'profWise' && !(d3.select(".title").text().includes(d.key.toUpperCase()))){
+                let href = `../professor/${hyphenate(d.key)}`;
+                divTooltip.html(`<span><a href=${href}>${(d.key)}</a></span><br>Rating: <span>${Math.round(d.value*100)/100}</span>`)
+                }
+                else{
+                    divTooltip.html(`<span>${(d.key)}</span><br>Rating: <span>${Math.round(d.value*100)/100}</span>`)
+                }
+                  divTooltip.style('left', `${d3.event.layerX}px`)
                   .style('top', `${(d3.event.layerY - 50)}px`);
               })
               
-            .on("mouseout", function(d) {
-                
+              .on("mouseout", function(d) {
+                if(dataType == 'profWise'){
+                divTooltip.on("mouseover", function(d){
+                    divTooltip.style("display", "block")
+                divTooltip.transition().duration(200).style('opacity', 0.9);
+                })
+                    .on("mouseout", function(d){
+                        divTooltip.style("display", "none")
+                divTooltip.transition().duration(500).style('opacity', 0)
+                    });
+                }
                 divTooltip.style("display", "none")
                 divTooltip.transition().duration(500).style('opacity', 0)
                 d3.select(this).transition().duration(250)
                     .attr("fill", color(d.key))
                     .style("opacity", "1")
-                    //.style("opacity", "1")
                     .style("stroke-opacity", "0");
                 
             })
-            .append("a")
-            .attr("href", "www.google.com")
             // setting up transition, delay and duration
             .transition()
             .delay(function(d) {
@@ -609,7 +617,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 return year;
             }
         
-       
+       //function to hyphenate a name
         function hyphenate(profName){
             let hyphenatedName = "";
             for(let index = 0; index < profName.length; index++){
@@ -621,6 +629,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
             }
             return hyphenatedName;
         }
+        //function to unhyphenate a name
         function unhyphenate(profName){
             let unhyphenatedName = "";
             for(let index = 0; index < profName.length; index++){
@@ -636,6 +645,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
         function sortNumber(a, b){
             return a.year - b.year;
         }
+        //function to find the average of a rating
         function average(array, property, instructor){
             
             let count = 0.0;
@@ -657,6 +667,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
             else
                 return [-1, -1, -1];
         }
+        //function to compare the subjects that the instructor teaches
         async function compareWithSubjects(activeRatings, data){
             subjectArray = []
             compArray = []
@@ -679,6 +690,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
             
             return compArray;
         }
+        //function to compare the instructor with similar professors
         async function compareWithProfessors(subjectCode, subject, activeRatings, data){
             let responses = new Map();
             let compArray = []
@@ -710,6 +722,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
             
                 return compArray;
         }
+        //function to compare the instructor with the entire department or the course teachers
         async function compareWithCourse(subjectCode, activeRatings, data){
             
             let responses = new Map();
@@ -727,21 +740,40 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 compArray[index][comparison] = average(subjectData, hyphenate(activeRatings[index]))[0];
                 compArray[index]["Rating"] = activeRatings[index];
                 responses.set(activeRatings[index], {ProfResponses:average(data, hyphenate(activeRatings[index]))[1], CompResponses:average(subjectData, hyphenate(activeRatings[index]))[1]})
-                /*compArray.push({
-                    Professor: average(data, hyphenate(activeRatings[index]))[0],
-                    Comparison: average(subjectData, hyphenate(activeRatings[index]))[0],
-                    Rating: activeRatings[index]
-                })*/
 
             }
             return compArray;
 
         }
+        //function to wrap the text beneath a graph when it's too long
+        function wrap(text, width) {
+            text.each(function() {
+            let text = d3.select(this),
+                  words = text.text().split(/\s+/).reverse(),
+                  word,
+                  line = [],
+                  lineNumber = 0,
+                  lineHeight = 1.1, // ems
+                  y = text.attr("y"),
+                  dy = parseFloat(text.attr("dy")),
+                  tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+              while (word = words.pop()) {
+                line.push(word);
+                tspan.text(line.join(" "));
+                if (tspan.node().getComputedTextLength() > width) {
+                  line.pop();
+                  tspan.text(line.join(" "));
+                  line = [word];
+                  tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                }
+              }
+            });
+          }
+        //function to see the pros and cons of a professor: still under construction
         function sentence(array){
             let greatest= [0];
             let pros = [];
             let cons = [];
-            //arr = (Object.values(array[0]));
             let names = [...array.reduce((s, o) => (Object.keys(o).forEach(k => s.add(k)), s), new Set)];
             for(let index1 = 10; index1 <= 27; index1++){
                 
@@ -796,6 +828,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
         }
 
        
-    
+        
     
     request.send(); 
+        
