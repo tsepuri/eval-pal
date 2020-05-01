@@ -44,7 +44,7 @@ router.get("/api/professor/:professor", (req, res) => {
     
 
     
-    for(var key in req.query){
+    for(let key in req.query){
         sqlQueryString = sqlQueryString + " AND " +key+ " = ?";
         keys.push(req.query[key]);
     }

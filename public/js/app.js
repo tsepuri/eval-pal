@@ -128,5 +128,6 @@ $(document).ready(function() {
             }
         });
     }
-   
+    if(document.currentScript.getAttribute('data')){
     httprequest.send(); 
+    }

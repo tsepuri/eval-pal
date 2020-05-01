@@ -56,6 +56,10 @@ h1{
   position: relative;
   width: 100%;
 }
+.tick{
+  max-width:20px;
+  word-wrap:break-word;
+}
 svg{
   color: #fff;
 }
@@ -68,6 +72,12 @@ text{
 .autocomplete-div{
   z-index: 9999;
 
+}
+.shrink{
+-webkit-transform:scale(0.5);
+-moz-transform:scale(0.5);
+-ms-transform:scale(0.5);
+transform:scale(0.5);
 }
 .tooltip-comp {
   position: absolute;

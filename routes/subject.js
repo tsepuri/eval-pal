@@ -32,13 +32,13 @@ router.get("/api/subject/:subject", (req, res) => {
         }
     }
     const catalogNbr = subjectWithCode.substr(index);
-    var keys = [subject];
+    let keys = [subject];
     let sqlQueryString = " subject = ?"
     if(catalogNbr){
     sqlQueryString += " AND catalog_nbr = ?";
     keys.push(catalogNbr);
     }
-    for(var key in req.query){
+    for(let key in req.query){
         if(key==="instructor_name"){
             sqlQueryString = sqlQueryString + " AND instructor_name LIKE ?"
             keys.push('%'+req.query[key]+'%');
