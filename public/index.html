@@ -18,9 +18,9 @@
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" href="css/style.css">
   </head>
-  <body style = "padding: 0px; margin: 0px;">
-    <header style = "padding: 0px; margin: 0px; background-color: rgba(0, 48, 78, 1)7">
-      <nav id = "navigation" class="navbar sticky-top navbar-dark navbar-expand-sm" style = "background-color: rgba(0, 48, 78, 1)">
+  <body class = "bodyStyle">
+    <header class = "headerStyle">
+      <nav id = "navigation" class="navbar sticky-top navbar-dark navbar-expand-sm navigationbackground">
         <!--<img src="https://scalar.usc.edu/works/new-and-improved/media/cwru_stacked_logo_blue_no_tag.jpg" height="30" class="d-inline-block align-top"
         alt="Case Western logo">-->
         <a class="navbar-brand header-image w-5 " href="#"><img src="img/header.png" class="w-50" alt=""></a>
@@ -35,19 +35,19 @@
       </nav>
     </header>
       <div id = "section1open"class = "container-fluid">
-        <div style = "background-color: transparent; height: 30%; width: 100%"></div>
-          <div class = "row" style = "width: 100%; margin: 0px; padding: 0px">
-              <div class = "col-md-2" style = "background-color: transparent"></div>
-              <div class = "wow fadeInDown col-md-8" style = "color: white; background-color: transparent; text-align: center; font-size: 55px">Search a class or professor</div>
+        <div class = "searchTextDiv"></div>
+          <div class = "row searchTextStyle">
+              <div class = "col-md-2 trasnsparentBackground"></div>
+              <div class = "wow fadeInDown col-md-8 searchText">Search a class or professor</div>
               <div class = "col-md-2"></div>
           </div>
-        <div style = "height: 1.5%"></div>
+        <div class = "smallOptionsBarrier"></div>
         <form autocomplete="off" id = "try-again-form" action = "./Options"  method = "POST">
-          <div class = "row" style = "width: 100%; margin: 0px; padding: 0px">
+          <div class = "row autcompletestyle">
               <div class = "col-lg-2"></div>
               <div class = "col-lg-8 row no-gutters justify-content-center">
               <div class = "autocomplete-div">
-              <div><input style = "overflow: hidden; position: relative;" value = "" size = "40" id = "user-search-input" class="form-control wow fadeInLeft" type="text" name = "searched" placeholder="Search a class or professor" aria-label="Search"></div>
+              <div><input value = "" size = "40" id = "user-search-input" class="form-control wow fadeInLeft searchbar" type="text" name = "searched" placeholder="Search a class or professor" aria-label="Search"></div>
               <div><button type = "button" style = "visibility: hidden" class="form-control button-fixup" id = "first-suggestion"></button></div>
               <div><button type = "button" style = "visibility: hidden" class="form-control button-fixup" id = "second-suggestion"></button></div>
               <div><button type = "button" style = "visibility: hidden" class="form-control button-fixup" id = "third-suggestion"></button></div>
