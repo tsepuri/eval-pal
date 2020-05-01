@@ -17,21 +17,21 @@ You will also need the username and password for the .env file, and a .json key 
 
 ### Installing
 
-*After installing Node.js, you need to direct yourself to the respository with the project and install the requirements for the project using
+After installing Node.js, you need to direct yourself to the respository with the project and install the requirements for the project using
 ```
 npm install -g
 ```
 
-*To connect to CloudSQL, you will need to install and start a proxy client server with a service account and explicit instance specification using the instructions [here](https://cloud.google.com/sql/docs/mysql/connect-external-app). The instance connection name is 
+To connect to CloudSQL, you will need to install and start a proxy client server with a service account and explicit instance specification using the instructions [here](https://cloud.google.com/sql/docs/mysql/connect-external-app). The instance connection name is 
 ```
 metal-filament-270618:us-east1:evalpal
 ```
 
-*The required key file, is a .json file that will be provided on reaching out. After creating the CloudSQL folder, please add it to the repository.  
+The required key file, is a .json file that will be provided on reaching out. After creating the CloudSQL folder, please add it to the repository.  
 
-*The .env_sample file in the respository has to be replaced with a .env file. The SQL_USERNAME_HERE and SQL_PASSWORD_HERE fields have to be replaced by the username and password that can be obtained by reaching out. 
+The .env_sample file in the respository has to be replaced with a .env file. The SQL_USERNAME_HERE and SQL_PASSWORD_HERE fields have to be replaced by the username and password that can be obtained by reaching out. 
 
-*The code is ready to be deployed
+The code is ready to be deployed
 
 
 ## Deployment
