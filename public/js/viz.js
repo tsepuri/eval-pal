@@ -163,7 +163,7 @@ width = +svg.attr("width") - margin.left - margin.right,
 height = +svg.attr("height") - margin.top - margin.bottom
 ;
 
-let parseTime = d3.timeParse("%Y")
+let parseTime = d3.timeParse("%m/%Y")
 bisectDate = d3.bisector(function(d) { return d.year; }).left;
 
 let x = d3.scaleTime().range([0, width]);
@@ -178,7 +178,7 @@ let g = svg.append("g")
 
 data.forEach(function(d) {
   d.oldYear = d.year;
-  d.year = parseTime(d.year);
+  d.year = parseTime(""+d.year);
   d.value = +d.value;
 });
 //[parseTime(2010), parseTime(2019)]
@@ -230,7 +230,11 @@ tooltip.append("line")
           .attr("transform", "translate(" + x(d.year) + "," + y(d.value) + ")")
           .call(callout, `Rating = ${d.value.toLocaleString(undefined, {style: "decimal"})} 
           Responses = ${yearMap.get(d.oldYear).responses}
-        Semester = ${yearMap.get(d.oldYear).semester}`);
+          Enrollment = ${yearMap.get(d.oldYear).enrollment}
+        Semester = ${yearMap.get(d.oldYear).semester}`
+        
+        );
+        
           //Year = ${d.year.toLocaleString(undefined, {year: "numeric"})
     });
   
@@ -248,8 +252,8 @@ function mousemove() {
   var x0 = x.invert(d3.mouse(this)[0]),
       i = bisectDate(data, x0, 1),
       d0 = data[i - 1],
-      d1 = data[i],
-      d = x0 - d0.year > d1.year - x0 ? d1 : d0;
+      d1 = data[i];
+      //d = x0 - d0.year > d1.year - x0 ? d1 : d0;
  
 
  tooltip.select(".x-hover-line").attr("y2", height - y(d.value));
@@ -610,10 +614,20 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 function yearOf(data) {
                 
                 let year="";
+                if(data.includes("Summer")){
+                    year+="05/";
+                }
+                else if(data.includes("Fall")){
+                    year+="09/";
+                }
+                else if(data.includes("Spring")){
+                    year+="01/";
+                }
                 for(let i = 0;i < data.length; i++){
                     if(data[i]>='0'&data[i]<='9')
                         year = year+data[i];
                 }
+                console.log(year);
                 return year;
             }
         
@@ -643,7 +657,15 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
         }
         
         function sortNumber(a, b){
-            return a.year - b.year;
+            let a_year = +a.year.substring(a.year.indexOf("/")+1);
+            let a_month = +a.year.substring(0,a.year.indexOf("/"));
+            let b_year = +b.year.substring(b.year.indexOf("/")+1);
+            let b_month = +b.year.substring(0,b.year.indexOf("/"));
+            if(a_year == b_year)
+                return a_month - b_month;
+            else{
+                return a_year - b_year;
+            }
         }
         //function to find the average of a rating
         function average(array, property, instructor){
@@ -698,8 +720,9 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
             let subjectData = await fetch(`../api/subject/${subjectCode}`);
             subjectData = await subjectData.json();
             let count = 1;
-            for(let index = 0; count <= 2 && index < data.length; index++){
+            for(let index = 0; count <= 3 && index < subjectData.length; index++){
                 if(subjectData[index].instructor_name){
+                    console.log(subjectData[index].instructor_name);
                 if(!profArray.includes(subjectData[index].instructor_name)){
                     profArray[count++] = (subjectData[index].instructor_name);
                     
