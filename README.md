@@ -1,6 +1,6 @@
 # eval-pal
 
-Eval Pal is a website built on the last ten years of Case Western Reserve University's course evaluation data and designed for its students. It is based on the idea of visualizing and analyzing the evaluation data , and making it much more accessible to students. On completion, the website is planned for integration with the [CWRU Student Information System](sis.case.edu).
+Eval Pal is a website built on the last ten years of Case Western Reserve University's course evaluation data and designed for its students. It is based on the idea of visualizing and analyzing the evaluation data , and making it much more accessible to students. On completion, the website is planned for integration with the [CWRU Student Information System](sis.case.edu). The working website can be found [here](https://metal-filament-270618.appspot.com/). 
 
 
 ## Getting started
@@ -10,7 +10,7 @@ These instructions will tell you how to get the code up and running on your loca
 
 ### Prerequisites
 
-You will need to install [Node.js](https://nodejs.org/en/) on your local machine, have a command-line interface, and an IDE that can run languages like HTML, CSS and JavaScript. 
+You will need to have [Node.js](https://nodejs.org/en/) on your local machine, have a command-line interface, an IDE that can run languages like HTML, CSS and JavaScript, and be able to use UNIX sockets.
 
 You will also need the username and password for the .env file, and a .json key file which will provide the authorization to connect to CloudSQl from your local machine. These can be acquired on discretion, by reaching out to the creators of the project.
 
@@ -22,12 +22,22 @@ After installing Node.js, you need to direct yourself to the respository with th
 npm install -g
 ```
 
-To connect to CloudSQL, you will need to install and start a proxy client server with a service account and explicit instance specification using the instructions [here](https://cloud.google.com/sql/docs/mysql/connect-external-app). The instance connection name is 
+To connect to CloudSQL, you will need to install and start a proxy client server with a service account and explicit instance specification using the instructions [here](https://cloud.google.com/sql/docs/mysql/connect-external-app). You will need to follow steps 2 and 6 using UNIX sockets. The instance connection name is 
 ```
 metal-filament-270618:us-east1:evalpal
 ```
 
-The required key file, is a .json file that will be provided on reaching out. After creating the CloudSQL folder, please add it to the repository.  
+The required key file is present in the GitHub repository. Ideally, you will need three lines of code. They will be:
+```
+wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+```
+```
+chmod +x cloud_sql_proxy
+```
+```
+./cloud_sql_proxy -dir=/cloudsql -instances=metal-filament-270618:us-east1:evalpal \
+                  -credential_file=/keyfile/metal-filament-270618-60274d92cd71.json &
+```
 
 The .env_sample file in the respository has to be replaced with a .env file. The SQL_USERNAME_HERE and SQL_PASSWORD_HERE fields have to be replaced by the username and password that can be obtained by reaching out. 
 

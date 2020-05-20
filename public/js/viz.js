@@ -610,7 +610,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 circle.innerHTML = `<span class="rating-number">${Math.round(avg[0]*100) / 100} <br /> <small style="font-size:30%;">${value} <br /><small style="font-size:50%">Based on ${avg[1]} responses<br /><small style="font-size:100%"> out of ${avg[2]} students</small></small></small>`;
             }
         }
-        }
+    }
                 function yearOf(data) {
                 
                 let year="";
