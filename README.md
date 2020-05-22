@@ -27,7 +27,7 @@ To connect to CloudSQL, you will need to install and start a proxy client server
 metal-filament-270618:us-east1:evalpal
 ```
 
-The required key file is present in the GitHub repository. Ideally, you will need three lines of code. They will be:
+The required key file is private and can be obtained on discretion by reaching out. Ideally, you will need three lines of code. They will be:
 ```
 wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
 ```
@@ -36,8 +36,10 @@ chmod +x cloud_sql_proxy
 ```
 ```
 ./cloud_sql_proxy -dir=/cloudsql -instances=metal-filament-270618:us-east1:evalpal \
-                  -credential_file=/keyfile/metal-filament-270618-60274d92cd71.json &
+                  -credential_file=/keyfile/eval-pal-key.json &
 ```
+
+The last line assumes you add the key file in the keyfile folder with the name of 'eval-pal-key'
 
 The .env_sample file in the respository has to be replaced with a .env file. The SQL_USERNAME_HERE and SQL_PASSWORD_HERE fields have to be replaced by the username and password that can be obtained by reaching out. 
 
