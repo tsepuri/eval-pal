@@ -68,13 +68,8 @@ router.get("/api/subject/:subject", (req, res) => {
 function isLetter(str) {
     return str.length === 1 && str.match(/[A-Z]/i);
   }
-const pool = mysql.createPool({
-    connectionLimit: 15,
-    user: process.env.SQL_USER,
-    password: process.env.SQL_PASSWORD,
-    database: 'evalpal',
-    socketPath: `/cloudsql/metal-filament-270618:us-east1:evalpal`
-})
+const pool = mysql.createPool(process.env.DATABASE_URL)
+
 function getConnection() {
     return pool
 }
