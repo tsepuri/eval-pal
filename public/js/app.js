@@ -36,7 +36,7 @@ $(document).ready(function() {
                     colOne.setAttribute("href", "../professor/"+profName);
                     row.appendChild(colOne);
                     row.appendChild(colTwo);
-                    document.getElementById("results").appendChild(row);
+                    document.getElementById("results-main").appendChild(row);
                     classes.set(data[i].instructor_name+data[i].subject+data[i].catalog_nbr, "");
                 }
             }
