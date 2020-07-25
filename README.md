@@ -1,6 +1,6 @@
 # eval-pal
 
-Eval Pal is a website built on the last ten years of Case Western Reserve University's course evaluation data and designed for its students. It is based on the idea of visualizing and analyzing the evaluation data , and making it much more accessible to students. On completion, the website is planned for integration with the [CWRU Student Information System](sis.case.edu). The working website can be found [here](https://metal-filament-270618.appspot.com/). 
+Eval Pal is a website built on the last ten years of Case Western Reserve University's course evaluation data and designed for its students. It is based on the idea of visualizing and analyzing the evaluation data , and making it much more accessible to students. On completion, the website is planned for integration with the [CWRU Student Information System](sis.case.edu). The working website can be found [here](https://evalpal.herokuapp.com/). 
 
 
 ## Getting started
@@ -22,26 +22,7 @@ After installing Node.js, you need to direct yourself to the respository with th
 npm install -g
 ```
 
-To connect to CloudSQL, you will need to install and start a proxy client server with a service account and explicit instance specification using the instructions [here](https://cloud.google.com/sql/docs/mysql/connect-external-app). You will need to follow steps 2 and 6 using UNIX sockets. The instance connection name is 
-```
-metal-filament-270618:us-east1:evalpal
-```
-
-The required key file is private and can be obtained on discretion by reaching out. Ideally, you will need three lines of code. They will be:
-```
-wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
-```
-```
-chmod +x cloud_sql_proxy
-```
-```
-./cloud_sql_proxy -dir=/cloudsql -instances=metal-filament-270618:us-east1:evalpal \
-                  -credential_file=/keyfile/eval-pal-key.json &
-```
-
-The last line assumes you add the key file in the keyfile folder with the name of 'eval-pal-key'
-
-The .env_sample file in the respository has to be replaced with a .env file. The SQL_USERNAME_HERE and SQL_PASSWORD_HERE fields have to be replaced by the username and password that can be obtained by reaching out. 
+The .env_sample file in the respository has to be replaced with a .env file. The DATABASE_URL field have to be replaced by the ClearDB MySQL database URL that can be obtained by reaching out. 
 
 The code is ready to be deployed
 
@@ -65,7 +46,7 @@ that automatically refreshes the server when a change has been made.
 * Node.js - Back-End and in implementation of RESTful API 
 * [d3.js](https://d3js.org/) - Data Visualization 
 * [MDBootstrap](https://mdbootstrap.com/) - User Interface
-* [Google Cloud](https://cloud.google.com) - Server
+* MySQL, [ClearDB](https://www.cleardb.com/) and [Heroku](www.heroku.com) 
 * HTML and CSS
 
 ## Authors
