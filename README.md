@@ -46,7 +46,7 @@ that automatically refreshes the server when a change has been made.
 * Node.js - Back-End and in implementation of RESTful API 
 * [d3.js](https://d3js.org/) - Data Visualization 
 * [MDBootstrap](https://mdbootstrap.com/) - User Interface
-* MySQL, [ClearDB](https://www.cleardb.com/) and [Heroku](www.heroku.com) - Database and Server
+* MySQL, [ClearDB](https://www.cleardb.com/) and [Heroku](www.heroku.com) 
 * HTML and CSS
 
 ## Authors
