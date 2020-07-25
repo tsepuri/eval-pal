@@ -2,13 +2,17 @@ const express = require('express')
 const mysql = require('mysql')
 const router = express.Router()
 require('dotenv').config();
+const pool = mysql.createPool('mysql://b506c08de67802:f6489f31@us-cdbr-east-02.cleardb.com/heroku_44f21432f75dfd0?reconnect=true')
+/*
 const pool = mysql.createPool({
+    host: 'http://us-cdbr-east-02.cleardb.com/',
     connectionLimit: 10,
     user: process.env.SQL_USER,
     password: process.env.SQL_PASSWORD,
-    database: 'evalpal',
-    socketPath: `/cloudsql/metal-filament-270618:us-east1:evalpal`
+    database: 'heroku_44f21432f75dfd0'
+    //socketPath: `/cloudsql/metal-filament-270618:us-east1:evalpal`
 })
+*/
 function getConnection() {
     return pool
 }
