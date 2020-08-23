@@ -52,7 +52,7 @@ that automatically refreshes the server when a change has been made.
 ## Authors
 
 * **Tarun Sepuri** - *Back-End, visualization and Ratings interface* - [tsepuri](https://github.com/tsepuri)
-* **Alexander Bradley** - *User Interface* - [Alexhb02](https://github.com/Alexhb02)
+* **Alexander Harding Bradley** - *User Interface* - [Alexhb02](https://github.com/Alexhb02)
 
 ## Acknowledgments
 
