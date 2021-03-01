@@ -110,7 +110,7 @@
                 circle.style.display = 'flex';
                 circle.parentElement.style.display = 'flex';
                 let avg = average(jsonData, "Your_overall_rating_of_the_course");
-                 circle.innerHTML = `<span class="rating-number">${Math.round(avg[0]*100) / 100} <br /> <small style="font-size:30%;">Overall Rating of the Course<br/><small style="font-size:50%">Based on ${avg[1]} responses out of ${avg[2]} students</small></small>`;
+                 circle.innerHTML = `<span class="rating-number">${Math.round(avg[0]*100) / 100} <br /> <small style="font-size:30%;">Overall Rating of the Course<br/><small style="font-size:70%">Based on ${avg[1]} responses out of ${avg[2]} students</small></small>`;
                  document.querySelector('.button-rating').value = "Your overall rating of the course"
                  ratingType = hyphenate("Your overall rating of the course");
                 d3.select('.title')
@@ -152,7 +152,7 @@
                     d3.select(".title")
                     .style("margin-top", "1em")
                     .style("margin-left", "1em")
-                        .html(`<i>${ratingName}</i> over the years`.toUpperCase());
+                        .html(`<i>${ratingName}</i>, over the years`.toUpperCase());
                     
                         d3.select("svg")
                             .attr("display", "block");
@@ -515,8 +515,8 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 else{
                     divTooltip.html(`<span>${(d.key)}</span><br>Rating: <span>${Math.round(d.value*100)/100}</span>`)
                 }
-                  divTooltip.style('left', `${d3.event.layerX}px`)
-                  .style('top', `${(d3.event.layerY - 50)}px`);
+                  divTooltip.style('left', `${d3.event.layerX - 50}px`)
+                  .style('top', `${d3.event.layerY + 300}px`);
               })
               
               .on("mouseout", function(d) {
