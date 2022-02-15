@@ -50,9 +50,9 @@
                 fillCircle(jsonData, circle, "Your overall rating of the instructor");
                 circle.style.display = 'flex';
                 circle.parentElement.style.display = 'flex';
-                document.querySelector('.compareWithProf').style.display = 'flex';
+                // document.querySelector('.compareWithProf').style.display = 'flex';
                 document.querySelector('.circle-2').style.display= 'flex';
-                document.querySelector('.compareWithProf').parentElement.style.display = 'flex';
+                // document.querySelector('.compareWithProf').parentElement.style.display = 'flex';
                 document.querySelector('.circle-2').parentElement.style.display= 'flex';
                 activeRatings = ["Your overall rating of the instructor", "Your overall rating of the course", "Grading is done fairly"];
                 fillCircle(jsonData, document.querySelector('#courseRating'), document.querySelector('#courseRating').getAttribute("value"));
