@@ -51,7 +51,7 @@ router.get("/api/professor/:professor", (req, res) => {
             return {term: row.term_name, classNumber: row.class_nbr, subject: row.subject, instructorId : row.instructor_netid, enrollment: row.enrollment, catalogNumber: row.catalog_nbr, responses: row.responses}
         })
         */
-        res.json(rows)
+        res.json(rows.rows)
     })
     done()
 })

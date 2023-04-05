@@ -89,6 +89,7 @@ $(document).ready(function() {
         if(event.target.value.length == 1){
             optionsArr = await fetch(`../api/professor/${event.target.value}`);
             optionsArr = await optionsArr.json();
+            console.log(optionsArr)
             for(i = 0; i < optionsArr.length; i++){
                 filteredArr.push(optionsArr[i].instructor_name);
             }

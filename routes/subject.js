@@ -62,7 +62,7 @@ router.get("/api/subject/:subject", (req, res) => {
         })
         */
        
-        res.json(rows)
+        res.json(rows.rows)
     })
     done()
 })

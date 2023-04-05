@@ -47,21 +47,21 @@
                 sentence(jsonData);
                  userDisplay = "Results for "+data[0].instructor_name;
                  let circle = document.querySelector('.circle-with-text');
-                fillCircle(jsonData, circle, "Your overall rating of the instructor");
+                fillCircle(jsonData, circle, "instructorrating", "Your overall rating of the instructor");
                 circle.style.display = 'flex';
                 circle.parentElement.style.display = 'flex';
                 // document.querySelector('.compareWithProf').style.display = 'flex';
                 document.querySelector('.circle-2').style.display= 'flex';
                 // document.querySelector('.compareWithProf').parentElement.style.display = 'flex';
                 document.querySelector('.circle-2').parentElement.style.display= 'flex';
-                activeRatings = ["Your overall rating of the instructor", "Your overall rating of the course", "Grading is done fairly"];
-                fillCircle(jsonData, document.querySelector('#courseRating'), document.querySelector('#courseRating').getAttribute("value"));
-                if(fillCircle(jsonData, document.querySelector('#fairGrading'), document.querySelector('#fairGrading').getAttribute("value")) == -1){
+                activeRatings = ["instructorrating", "courserating", "fairgrading"];
+                fillCircle(jsonData, document.querySelector('#courserating'), document.querySelector('#courserating').getAttribute("value"), document.querySelector('#courserating').getAttribute("name"));
+                if(fillCircle(jsonData, document.querySelector('#fairgrading'), document.querySelector('#fairgrading').getAttribute("value"), document.querySelector('#courserating').getAttribute("name")) == -1){
                     
-                    document.querySelector('#fairGrading').parentElement.style.display = 'none';
-                    document.querySelector('#fairGrading').style.display = 'none';
+                    document.querySelector('#fairgrading').parentElement.style.display = 'none';
+                    document.querySelector('#fairgrading').style.display = 'none';
                     $('#grading_fairly').prop("checked", false);
-                    activeRatings.splice(activeRatings.indexOf("Grading is done fairly", 1));
+                    activeRatings.splice(activeRatings.indexOf("fairgrading", 1));
                 }
                 
                 if(userInput.includes("subject")){
@@ -151,8 +151,8 @@
                     d3.selectAll("svg > *").remove();
                     d3.select(".title")
                     .style("margin-top", "1em")
-                    .style("margin-left", "1em")
-                        .html(`<i>${ratingName}</i>, over the years`.toUpperCase());
+                    .style("margin-right", "2em")
+                        .html(`${ratingName}, over the years`.toUpperCase());
                     
                         d3.select("svg")
                             .attr("display", "block");
@@ -307,7 +307,9 @@ $(".button-rating").click(function(){
       yearMap = parsedData[1];
       
         data.sort(sortNumber); 
-            update(data, newRating, yearMap, ratingName);
+        console.log("HERE")
+        console.log(data)
+        update(data, newRating, yearMap, ratingName);
         
     });
     $(".compareProf").click(async function(){
@@ -491,13 +493,15 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
           .join("g")
             .attr("transform", d => `translate(${x0(d[groupKey])},0)`)
           .selectAll("rect")
-          .data(d => keys.map(key => ({key, value: d[key]})))
+          .data(d => keys.map(key => (
+            {key, value: d[key], name: dataType == 'subjectWise' ? fullName(key) : key
+            })))
           .join("rect")
             .attr("x", d => x1(d.key))
             .attr("y", d => y(d.value))
             .attr("width", x1.bandwidth())
             .attr("height", d => y(0) - y(d.value))
-            .attr("fill", d => color(d.key))
+            .attr("fill", d => color(d.name))
             .on('mouseover ', function(d) {
                 d3.select(this).transition()
                     .style("opacity", "0.5")
@@ -513,10 +517,10 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 divTooltip.html(`<span><a href=${href}>${(d.key)}</a></span><br>Rating: <span>${Math.round(d.value*100)/100}</span>`)
                 }
                 else{
-                    divTooltip.html(`<span>${(d.key)}</span><br>Rating: <span>${Math.round(d.value*100)/100}</span>`)
+                    divTooltip.html(`<span>${(d.name)}</span><br>Rating: <span>${Math.round(d.value*100)/100}</span>`)
                 }
                   divTooltip.style('left', `${d3.event.layerX - 50}px`)
-                  .style('top', `${d3.event.layerY + 300}px`);
+                  .style('top', `${d3.event.layerY + 50}px`);
               })
               
               .on("mouseout", function(d) {
@@ -533,7 +537,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 divTooltip.style("display", "none")
                 divTooltip.transition().duration(500).style('opacity', 0)
                 d3.select(this).transition().duration(250)
-                    .attr("fill", color(d.key))
+                    .attr("fill", color(d.name))
                     .style("opacity", "1")
                     .style("stroke-opacity", "0");
                 
@@ -562,14 +566,18 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
            
             for (let i = 0; i < data.length; i++) {      
                 if(data[i][ratingType]){
+                console.log(data[i][ratingType])
                 let yearAndMonth =  yearOf(data[i].term_name);   
                 if(yearMap.has(yearAndMonth)){
                     let id = yearMap.get(yearAndMonth);
-                    
-                    let newRating = ((id.rating*id.responses) + (data[i][ratingType]*data[i].responses))/(data[i].responses + id.responses);
+                    console.log(id)
+                    console.log(data[i])
+                    let newRating = ((+id.rating*+id.responses) + (+data[i][ratingType]*+data[i].responses))/(+data[i].responses + +id.responses);
                     newRating = Math.round(newRating*100) / 100.0;
                     arr[id.arrayID].value = newRating;
-                    yearMap.set(yearAndMonth, {arrayID:id.arrayID, semester : data[i].term_name, rating:newRating, responses:(id.responses+data[i].responses), enrollment:(id.enrollment+data[i].enrollment)});
+                    console.log("um")
+                    console.log(newRating)
+                    yearMap.set(yearAndMonth, {arrayID:id.arrayID, semester : data[i].term_name, rating:newRating, responses:(+id.responses+(+data[i].responses)), enrollment:(+id.enrollment+(+data[i].enrollment))});
                     
                 }
                 else{
@@ -579,11 +587,12 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                     value: +data[i][ratingType]
                     
                 }); 
-                yearMap.set(yearAndMonth, {arrayID:(arr.length-1), rating : +data[i][ratingType], semester : data[i].term_name, responses : data[i].responses, enrollment : data[i].enrollment});
+                yearMap.set(yearAndMonth, {arrayID:(arr.length-1), rating : +data[i][ratingType], semester : data[i].term_name, responses : +data[i].responses, enrollment : +data[i].enrollment});
             }
            }
 
             }   
+                console.log(yearMap)
                 return [arr, yearMap];}
                 function fillCircle(data, circle, value){
                     circle.style.display= 'flex';
@@ -596,6 +605,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
         function fillCircle(data, circle, value, name){
             
             let avg = average(data, hyphenate(value));
+            console.log(avg)
             if(avg[0] == -1){
                 return -1;
             }
@@ -643,6 +653,16 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
             }
             return hyphenatedName;
         }
+        function fullName(value) {
+            if (!document.querySelector(`#${value}`)) {
+                return value
+            }
+            let supposedName =  document.querySelector(`#${value}`).getAttribute("name")
+            if (!supposedName) {
+                return value
+            }
+            return supposedName
+        }
         //function to unhyphenate a name
         function unhyphenate(profName){
             let unhyphenatedName = "";
@@ -677,8 +697,8 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 if((array[index][property])){
                     if(!(instructor != null && array[index].instructor_name != instructor)){
                     let rating = +array[index][property];
-                    let responses = array[index].responses;
-                    enrollmentCount = enrollmentCount + array[index].enrollment;
+                    let responses = +array[index].responses;
+                    enrollmentCount = enrollmentCount + +array[index].enrollment;
                     sum = sum + (rating*responses);
                     count = count + responses;
                     }
@@ -731,7 +751,9 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
             }
             for(let index = 0; index < activeRatings.length && index<=3; index++){
 
-
+                if (!document.querySelector(`#${value}`)) {
+                    return fullName
+                }
                 compArray[index]= {};
                 for(let index1 = 0; index1 < profArray.length; index1++){
 
@@ -740,7 +762,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                     
                     compArray[index][profArray[index1]] = average(profData, hyphenate(activeRatings[index]))[0];
                 }
-                compArray[index]["Rating"] = activeRatings[index];
+                compArray[index]["Rating"] = fullName(activeRatings[index]);
             }
             
                 return compArray;
@@ -761,7 +783,7 @@ let keys = d3.keys(data[0]).filter(function(key){return key!=="Rating";});
                 compArray[index] = {};
                 compArray[index][data[0].instructor_name] = average(data, hyphenate(activeRatings[index]))[0];
                 compArray[index][comparison] = average(subjectData, hyphenate(activeRatings[index]))[0];
-                compArray[index]["Rating"] = activeRatings[index];
+                compArray[index]["Rating"] = fullName(activeRatings[index]);
                 responses.set(activeRatings[index], {ProfResponses:average(data, hyphenate(activeRatings[index]))[1], CompResponses:average(subjectData, hyphenate(activeRatings[index]))[1]})
 
             }
