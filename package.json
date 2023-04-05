@@ -8,15 +8,14 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
-    "mysql": "^2.18.1",
     "nodemon": "^2.0.2",
+    "pg": "^8.10.0",
     "request": "^2.88.2",
     "xmlhttprequest": "^1.8.0"
   },
   "engines": {
     "node": ">=8.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"

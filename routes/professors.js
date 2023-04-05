@@ -1,50 +1,55 @@
 const express = require('express')
-const mysql = require('mysql')
+const { Pool } = require('pg')
 const router = express.Router()
 require('dotenv').config();
-const pool = mysql.createPool(process.env.DATABASE_URL)
 
-function getConnection() {
-    return pool
-}
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL
+})
+
 router.get("/professor/:professor", (req, res) => {
-
     url = "/api"+req.url;
     res.render('ratings.ejs', {data:url});
 })
 router.get("/api/professor/:professor", (req, res) => {
-    
-    const connection = getConnection();
+    pool.connect((err, client, done) => {
     let professorId = req.params.professor;
     let sqlQueryString = "";
     let keys = [];
+    let index = 1;
     if(isLetter(professorId.charAt(0))){
         if(hasSpace(professorId)){
     professorId = professorId.split(" ");
-    sqlQueryString = " instructor_name LIKE ? AND instructor_name LIKE ?"
+    sqlQueryString = ` instructor_name LIKE $${index++} AND instructor_name LIKE $${index++}`
     let professorFirstName = '%' + professorId[0] + '%';
     let professorLastName = '%' + professorId[1] + '%';
     keys = [professorFirstName, professorLastName];
     }
     else{
-        sqlQueryString = " instructor_name LIKE ?"
+        sqlQueryString = ` instructor_name LIKE $${index++}`
         professorId = '%' + professorId + '%';
         keys = [professorId];
     }
 }
     else{
-    sqlQueryString = " instructor_netid = ?"
+    sqlQueryString = ` instructor_netid = $${index++}`
     keys = [professorId];
     }
     
 
-    
     for(let key in req.query){
-        sqlQueryString = sqlQueryString + " AND " +key+ " = ?";
+        sqlQueryString = `${sqlQueryString} AND ${key} = $${index++}`
         keys.push(req.query[key]);
     }
-    const queryString = "SELECT * FROM summer WHERE"+sqlQueryString;
-    connection.query(queryString, keys, (err, rows, fields) => {
+    client.query('SELECT * FROM pg_catalog.pg_tables', (err, rows) => {
+        if (err) {
+            throw err;
+        }
+        console.log(rows)
+    })
+    const queryString = 'SELECT * FROM public.historical WHERE'+sqlQueryString;
+    console.log(queryString)
+    client.query(queryString, keys, (err, rows, fields) => {
         if(err){
             throw err;
         }
@@ -54,6 +59,8 @@ router.get("/api/professor/:professor", (req, res) => {
         */
         res.json(rows)
     })
+    done()
+})
 })
 function hasSpace(str){
     for(let index = 0; index < str.length; index++){
