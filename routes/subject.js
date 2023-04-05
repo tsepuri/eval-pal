@@ -1,5 +1,5 @@
 const express = require('express')
-const { Client } = require('pg')
+const { Pool } = require('pg')
 const router = express.Router()
 const path = require(`path`);
 const bodyParser = require('body-parser')
@@ -63,7 +63,6 @@ router.get("/api/subject/:subject", (req, res) => {
         */
        
         res.json(rows)
-        client.end()
     })
     done()
 })

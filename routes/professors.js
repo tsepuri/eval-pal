@@ -41,12 +41,6 @@ router.get("/api/professor/:professor", (req, res) => {
         sqlQueryString = `${sqlQueryString} AND ${key} = $${index++}`
         keys.push(req.query[key]);
     }
-    client.query('SELECT * FROM pg_catalog.pg_tables', (err, rows) => {
-        if (err) {
-            throw err;
-        }
-        console.log(rows)
-    })
     const queryString = 'SELECT * FROM public.historical WHERE'+sqlQueryString;
     console.log(queryString)
     client.query(queryString, keys, (err, rows, fields) => {
